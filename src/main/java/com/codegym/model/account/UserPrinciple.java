@@ -1,4 +1,4 @@
-package com.codegym.model;
+package com.codegym.model.account;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
