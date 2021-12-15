@@ -5,6 +5,7 @@ import com.codegym.model.receipt.Interest;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "checkers")
@@ -31,6 +32,8 @@ public class Checker {
     @ManyToOne(targetEntity =  Interest.class)
     @JoinColumn(name = "interest_id")
     private Interest interestGender;
+
+
 
 
 

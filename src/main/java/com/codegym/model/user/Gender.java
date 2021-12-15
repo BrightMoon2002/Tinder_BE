@@ -3,6 +3,7 @@ package com.codegym.model.user;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "genders")
@@ -14,11 +15,13 @@ public class Gender {
 
     private String name;
 
-    @OneToOne
-    private Staff staff;
+    @OneToMany(mappedBy = "gender")
+    @JoinColumn(name = "staff_id")
+    private List<Staff> staffList;
 
-    @OneToOne
-    private Checker checker;
+    @OneToMany(mappedBy = "gender")
+    @JoinColumn(name = "checker_id")
+    private List<Checker> checkerList;
 
 
 }
