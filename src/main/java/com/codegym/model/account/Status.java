@@ -1,5 +1,6 @@
-package com.codegym.model;
+package com.codegym.model.account;
 
+import com.codegym.model.account.Account;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 

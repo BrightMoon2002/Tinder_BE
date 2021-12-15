@@ -1,7 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.model.Account;
-import com.codegym.model.JwtResponse;
+import com.codegym.model.account.Account;
+import com.codegym.model.account.JwtResponse;
 
 import com.codegym.service.account.IAccountService;
 import com.codegym.service.jwt.JwtService;

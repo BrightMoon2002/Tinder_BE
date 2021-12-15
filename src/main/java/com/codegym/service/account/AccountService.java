@@ -1,12 +1,11 @@
 package com.codegym.service.account;
 
-import com.codegym.model.Account;
-import com.codegym.model.UserPrinciple;
+import com.codegym.model.account.Account;
+import com.codegym.model.account.UserPrinciple;
 import com.codegym.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
