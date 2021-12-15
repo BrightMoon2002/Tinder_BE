@@ -1,23 +1,22 @@
 package com.codegym.model.receipt;
 
+import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "bills")
+@Table(name = "assessments")
 @Data
-public class Bill {
-
+public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate date;
-    @ManyToOne(targetEntity = Staff.class)
-    private Staff staff;
+    private Checker owner;
 
+    private Staff receiver;
+
+    private String content;
 }
