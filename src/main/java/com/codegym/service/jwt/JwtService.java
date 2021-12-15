@@ -1,6 +1,6 @@
 package com.codegym.service.jwt;
 
-import com.codegym.model.UserPrinciple;
+import com.codegym.model.account.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
