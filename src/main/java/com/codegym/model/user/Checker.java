@@ -1,7 +1,8 @@
 package com.codegym.model.user;
 
 import com.codegym.model.account.Account;
-import com.codegym.model.receipt.Interest;
+import com.codegym.model.receipt.Bill;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +21,6 @@ public class Checker {
     private String name;
     private String dob;
     @ManyToOne(targetEntity = Gender.class)
-    @JoinColumn(name = "gender_id")
     private Gender gender;
     private String identity;
     private String address;
@@ -29,9 +29,13 @@ public class Checker {
     private String description;
     private String url_facebook;
 
-    @ManyToOne(targetEntity =  Interest.class)
-    @JoinColumn(name = "interest_id")
-    private Interest interestGender;
+    @OneToMany(targetEntity = Bill.class, mappedBy = "checker")
+    @JsonBackReference
+    private List<Bill> billList;
+
+
+
+
 
 
 

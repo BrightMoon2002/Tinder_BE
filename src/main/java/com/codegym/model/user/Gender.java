@@ -1,5 +1,6 @@
 package com.codegym.model.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,12 +16,12 @@ public class Gender {
 
     private String name;
 
-    @OneToMany(mappedBy = "gender")
-    @JoinColumn(name = "staff_id")
+    @OneToMany(targetEntity = Staff.class, mappedBy = "gender")
+    @JsonBackReference
     private List<Staff> staffList;
 
-    @OneToMany(mappedBy = "gender")
-    @JoinColumn(name = "checker_id")
+    @OneToMany(targetEntity = Checker.class, mappedBy = "gender")
+    @JsonBackReference
     private List<Checker> checkerList;
 
 

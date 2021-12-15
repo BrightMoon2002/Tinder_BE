@@ -1,8 +1,11 @@
 package com.codegym.model.user;
 
-import com.codegym.model.receipt.Interest;
+import com.codegym.model.receipt.Bill;
+import com.codegym.model.receipt.StaffOption;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "staffs")
@@ -12,7 +15,7 @@ public class Staff {
     private Long id;
 
     @ManyToOne(targetEntity = Gender.class)
-    @JoinColumn(name = "gender_id")
+
     private Gender gender;
 
     private String name;
@@ -23,11 +26,18 @@ public class Staff {
     private double weight;
     private String description;
 
-    @ManyToOne(targetEntity = Interest.class)
-    @JoinColumn(name = "interest_id")
-    private Interest interestGender;
 
-    private String avatar;
+    @OneToMany(targetEntity = Avatar.class, mappedBy = "staff")
+    @JsonBackReference
+    private List<Avatar> avatarList;
+
+    @OneToMany(targetEntity = Avatar.class, mappedBy = "staff")
+    @JsonBackReference
+    private List<Bill> billList;
+
+    @OneToMany(targetEntity = StaffOption.class, mappedBy = "staff")
+    @JsonBackReference
+    private List<StaffOption> staffOptionList;
 
 
 

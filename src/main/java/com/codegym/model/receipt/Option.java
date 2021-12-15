@@ -2,22 +2,28 @@ package com.codegym.model.receipt;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "billStatus")
+@Table(name = "options")
 @Data
-public class BillStatus {
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToMany(targetEntity = Bill.class, mappedBy = "billStatus")
+    private double price;
+
+    @OneToMany(targetEntity = StaffOption.class, mappedBy = "option")
     @JsonBackReference
-    private List<Bill> billList;
+    private List<StaffOption> staffOptionList;
+
+    @OneToMany(targetEntity = BillOption.class, mappedBy = "option")
+    private List<BillOption> billOptionList;
+
+
 }
