@@ -17,7 +17,7 @@ public class Bill {
     private Long id;
 
     private LocalDate date;
-    @ManyToOne(targetEntity = Staff.class)
+    @OneToOne(targetEntity = Staff.class)
     private Staff staff;
 
 }

@@ -1,5 +1,8 @@
 package com.codegym.model.account;
 
+import com.codegym.model.user.Checker;
+import com.codegym.model.user.Staff;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -38,6 +41,12 @@ public class Account  {
             joinColumns = {@JoinColumn(name = "accounts_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
+
+    @OneToOne
+    private Staff staff;
+
+    @OneToOne
+    private Checker checker;
 
     public Account(Long id, String username, String password, String fullName, Double balance, String phone, String email, Status status, Set<Role> roles) {
         this.id = id;
