@@ -40,4 +40,12 @@ public class AssessmentController {
         }
         return new ResponseEntity<>(assessmentOptional.get(), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Assessment> getById(@PathVariable Long id) {
+        Optional<Assessment> assessmentOptional = assessmentService.findById(id);
+        if (!assessmentOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessmentOptional.get(), HttpStatus.OK);
+    }
 }

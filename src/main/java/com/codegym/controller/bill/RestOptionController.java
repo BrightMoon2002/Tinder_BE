@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("/api/options")
+@RequestMapping("/api/option")
 public class RestOptionController {
 
     @Autowired

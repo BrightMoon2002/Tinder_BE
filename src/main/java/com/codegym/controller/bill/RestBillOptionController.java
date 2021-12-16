@@ -45,4 +45,12 @@ public class RestBillOptionController {
         }
         return new ResponseEntity<>(billOptionOptional.get(), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<BillOption> getById(@PathVariable Long id) {
+        Optional<BillOption> billOptionOptional = billOptionService.findById(id);
+        if (!billOptionOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(billOptionOptional.get(), HttpStatus.OK);
+    }
 }
