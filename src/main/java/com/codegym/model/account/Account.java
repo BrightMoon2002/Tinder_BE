@@ -44,10 +44,10 @@ public class Account  {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    @OneToOne
+    @OneToOne(mappedBy = "account")
     private Staff staff;
 
-    @OneToOne
+    @OneToOne(mappedBy = "account")
     private Checker checker;
 
 

@@ -15,7 +15,7 @@ public class Checker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(mappedBy = "checker")
+    @OneToOne
     private Account account;
 
     private String name;

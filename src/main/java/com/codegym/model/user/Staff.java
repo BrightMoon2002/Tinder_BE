@@ -1,5 +1,6 @@
 package com.codegym.model.user;
 
+import com.codegym.model.account.Account;
 import com.codegym.model.receipt.Bill;
 import com.codegym.model.receipt.StaffOption;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -38,6 +39,9 @@ public class Staff {
     @OneToMany(targetEntity = StaffOption.class, mappedBy = "staff")
     @JsonBackReference
     private List<StaffOption> staffOptionList;
+
+    @OneToOne
+    private Account account;
 
 
 
