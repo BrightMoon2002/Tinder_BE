@@ -3,6 +3,8 @@ package com.codegym.service.role;
 import com.codegym.model.account.Role;
 import com.codegym.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,6 +32,11 @@ public class RoleService implements IRoleService {
     @Override
     public void remove(Long id) {
         roleRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Role> findAll(Pageable pageable) {
+        return roleRepository.findAll(pageable);
     }
 
     @Override
