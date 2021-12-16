@@ -18,8 +18,8 @@ import java.util.Optional;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("/bills")
-public class BillController {
+@RequestMapping("/api/bills")
+public class RestBillController {
 
     @Autowired
     private IBillService billService;
@@ -68,6 +68,7 @@ public class BillController {
         }
         return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
     }
+
 
 
 }
