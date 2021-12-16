@@ -3,6 +3,8 @@ package com.codegym.service.option;
 import com.codegym.model.receipt.Option;
 import com.codegym.repository.option.IOptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,5 +33,10 @@ public class OptionService implements IOptionService{
     @Override
     public void remove(Long id) {
         optionRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Option> findAll(Pageable pageable) {
+        return optionRepository.findAll(pageable);
     }
 }
