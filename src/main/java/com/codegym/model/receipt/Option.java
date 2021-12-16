@@ -23,6 +23,7 @@ public class Option {
     private List<StaffOption> staffOptionList;
 
     @OneToMany(targetEntity = BillOption.class, mappedBy = "option")
+    @JsonBackReference
     private List<BillOption> billOptionList;
 
 
