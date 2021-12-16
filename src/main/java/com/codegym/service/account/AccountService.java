@@ -4,6 +4,8 @@ import com.codegym.model.account.Account;
 import com.codegym.model.account.UserPrinciple;
 import com.codegym.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,11 @@ public class AccountService implements IAccountService {
     @Override
     public void remove(Long id) {
         accountRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Account> findAll(Pageable pageable) {
+        return accountRepository.findAll(pageable);
     }
 
     @Override
