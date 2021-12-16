@@ -4,6 +4,7 @@ import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "bills")
 @Data
+@NoArgsConstructor
 public class Bill {
 
     @Id

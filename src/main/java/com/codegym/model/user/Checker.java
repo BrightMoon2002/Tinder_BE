@@ -4,6 +4,7 @@ import com.codegym.model.account.Account;
 import com.codegym.model.receipt.Bill;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "checkers")
 @Data
+@NoArgsConstructor
 public class Checker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

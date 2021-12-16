@@ -2,12 +2,14 @@ package com.codegym.model.receipt;
 
 import com.codegym.model.user.Staff;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "staffOptions")
 @Data
+@NoArgsConstructor
 public class StaffOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,12 +1,14 @@
 package com.codegym.model.receipt;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "billOptions")
 @Data
+@NoArgsConstructor
 public class BillOption {
 
     @Id
