@@ -4,10 +4,12 @@ import com.codegym.model.account.Account;
 import com.codegym.model.receipt.Bill;
 import com.codegym.model.receipt.StaffOption;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "staffs")
 public class Staff {
