@@ -3,6 +3,8 @@ package com.codegym.service.staffoption;
 import com.codegym.model.receipt.StaffOption;
 import com.codegym.repository.staffoption.IStaffOptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,5 +32,10 @@ public class StaffOptionService implements IStaffOptionService{
     @Override
     public void remove(Long id) {
         staffOptionRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<StaffOption> findAll(Pageable pageable) {
+        return staffOptionRepository.findAll(pageable);
     }
 }
