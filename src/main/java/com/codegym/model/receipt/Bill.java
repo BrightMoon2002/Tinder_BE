@@ -2,6 +2,7 @@ package com.codegym.model.receipt;
 
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Bill {
     private BillStatus billStatus;
 
     @OneToMany(targetEntity = BillOption.class, mappedBy = "bill")
+    @JsonBackReference
     private List<BillOption> billOptionList;
 
 
