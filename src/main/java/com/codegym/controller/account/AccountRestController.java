@@ -2,12 +2,18 @@ package com.codegym.controller.account;
 
 
 import com.codegym.model.account.Account;
+<<<<<<< HEAD
 import com.codegym.model.account.Status;
 import com.codegym.model.email.MailObject;
 import com.codegym.service.account.IAccountService;
 import com.codegym.service.email.EmailService;
 import com.codegym.service.email.EmailServiceImpl;
 import com.codegym.service.status.IStatusService;
+=======
+import com.codegym.model.email.MailObject;
+import com.codegym.service.account.IAccountService;
+import com.codegym.service.email.EmailService;
+>>>>>>> cdc3d795aae753b4d5fd5346ed9ea9c2ab6aab7f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +29,14 @@ public class AccountRestController {
     IAccountService accountService;
 
     @Autowired
+<<<<<<< HEAD
     EmailServiceImpl emailService;
 
     @Autowired
     IStatusService statusService;
+=======
+    EmailService emailService;
+>>>>>>> cdc3d795aae753b4d5fd5346ed9ea9c2ab6aab7f
 
     @GetMapping
     public ResponseEntity<Iterable<Account>> findAllAccount() {
