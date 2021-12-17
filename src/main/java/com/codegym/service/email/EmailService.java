@@ -1,5 +1,7 @@
-package com.codegym.model.email;
+package com.codegym.service.email;
 
+
+import com.codegym.model.email.MailObject;
 
 import java.io.IOException;
 import java.util.Map;
