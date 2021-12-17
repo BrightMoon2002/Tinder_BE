@@ -1,6 +1,6 @@
 package com.codegym;
 
-import com.codegym.model.email.MailObject;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
