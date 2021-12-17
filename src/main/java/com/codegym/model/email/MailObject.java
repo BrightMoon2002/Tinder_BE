@@ -1,70 +1,103 @@
 package com.codegym.model.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.List;
 
-@Entity
-@Table(name = "mails")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class MailObject {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Email
-    @NotNull
-    @Size(min = 1, message = "please, set and email address to send the message to it")
-    private String to;
-    private String subject;
-    private String text;
-    private String senderName;
-    private String recipientName;
+    private String mailFrom;
 
+    private String mailTo;
 
-    public String getTo() {
-        return to;
+    private String mailCc;
+
+    private String mailBcc;
+
+    private String mailSubject;
+
+    private String mailContent;
+
+    private String contentType;
+
+    private List< Object > attachments;
+
+    public MailObject() {
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public String getContentType() {
+        return contentType;
     }
 
-    public String getSubject() {
-        return subject;
+    public MailObject(String mailFrom, String mailTo, String mailSubject, String mailContent) {
+        this.mailFrom = mailFrom;
+        this.mailTo = mailTo;
+        this.mailSubject = mailSubject;
+        this.mailContent = mailContent;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
-    public String getText() {
-        return text;
+    public String getMailBcc() {
+        return mailBcc;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setMailBcc(String mailBcc) {
+        this.mailBcc = mailBcc;
     }
 
-    public String getSenderName() {
-        return senderName;
+    public String getMailCc() {
+        return mailCc;
     }
 
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
+    public void setMailCc(String mailCc) {
+        this.mailCc = mailCc;
     }
 
-    public String getRecipientName() {
-        return recipientName;
+    public String getMailFrom() {
+        return mailFrom;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+    public void setMailFrom(String mailFrom) {
+        this.mailFrom = mailFrom;
     }
+
+    public String getMailSubject() {
+        return mailSubject;
+    }
+
+    public void setMailSubject(String mailSubject) {
+        this.mailSubject = mailSubject;
+    }
+
+    public String getMailTo() {
+        return mailTo;
+    }
+
+    public void setMailTo(String mailTo) {
+        this.mailTo = mailTo;
+    }
+
+    public Date getMailSendDate() {
+        return new Date();
+    }
+
+    public String getMailContent() {
+        return mailContent;
+    }
+
+    public void setMailContent(String mailContent) {
+        this.mailContent = mailContent;
+    }
+
+    public List < Object > getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List < Object > attachments) {
+        this.attachments = attachments;
+    }
+
 }
