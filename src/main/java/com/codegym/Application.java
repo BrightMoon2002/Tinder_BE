@@ -1,11 +1,10 @@
 package com.codegym;
 
-import com.codegym.model.email.EmailService;
+import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class Application {
