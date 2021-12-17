@@ -10,22 +10,33 @@ public class JwtResponse {
     private String type = "Bearer";
     private String username;
     private String name;
+    private String oneRole;
     private Collection<? extends GrantedAuthority> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, String name, Collection<? extends GrantedAuthority> roles) {
+    public JwtResponse(String accessToken, Long id, String username, String name,String oneRole ,Collection<? extends GrantedAuthority> roles) {
         this.token = accessToken;
         this.username = username;
         this.roles = roles;
         this.name = name;
         this.id = id;
+        this.oneRole = oneRole;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public JwtResponse(String accessToken, String type, String username, String name, String oneRole, Collection<? extends GrantedAuthority> roles) {
+        this.token = accessToken;
+        this.type = type;
+        this.username = username;
         this.name = name;
+        this.oneRole = oneRole;
+        this.roles = roles;
+    }
+
+    public JwtResponse(String token, String type, String username, String name, String oneRole) {
+        this.token = token;
+        this.type = type;
+        this.username = username;
+        this.name = name;
+        this.oneRole = oneRole;
     }
 
     public Long getId() {
@@ -36,20 +47,20 @@ public class JwtResponse {
         this.id = id;
     }
 
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenType() {
+    public String getType() {
         return type;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUsername() {
@@ -60,7 +71,27 @@ public class JwtResponse {
         this.username = username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOneRole() {
+        return oneRole;
+    }
+
+    public void setOneRole(String oneRole) {
+        this.oneRole = oneRole;
+    }
+
     public Collection<? extends GrantedAuthority> getRoles() {
         return roles;
+    }
+
+    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+        this.roles = roles;
     }
 }
