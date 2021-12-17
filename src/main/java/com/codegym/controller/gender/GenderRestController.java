@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/avatar")
+@RequestMapping("/api/gender")
 public class GenderRestController {
     @Autowired
     IGenderService genderService;
