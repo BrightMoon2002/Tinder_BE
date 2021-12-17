@@ -1,22 +1,15 @@
 package com.codegym.controller.mail;
 
-import com.codegym.model.email.EmailService;
+import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 @CrossOrigin("*")

@@ -1,6 +1,7 @@
 package com.codegym.model.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,11 +20,11 @@ public class Gender {
     private String name;
 
     @OneToMany(targetEntity = Staff.class, mappedBy = "gender")
-    @JsonBackReference
+    @JsonIgnore
     private List<Staff> staffList;
 
     @OneToMany(targetEntity = Checker.class, mappedBy = "gender")
-    @JsonBackReference
+    @JsonIgnore
     private List<Checker> checkerList;
 
 

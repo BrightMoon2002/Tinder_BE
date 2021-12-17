@@ -2,9 +2,9 @@ package com.codegym.controller.account;
 
 
 import com.codegym.model.account.Account;
-import com.codegym.model.email.EmailService;
 import com.codegym.model.email.MailObject;
 import com.codegym.service.account.IAccountService;
+import com.codegym.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

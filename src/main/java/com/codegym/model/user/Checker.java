@@ -3,6 +3,7 @@ package com.codegym.model.user;
 import com.codegym.model.account.Account;
 import com.codegym.model.receipt.Bill;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ public class Checker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
+    @JsonIgnore
     private Account account;
 
     private String name;

@@ -1,20 +1,15 @@
-package com.codegym.model.email;
+package com.codegym.service.email;
 
+import com.codegym.model.email.MailObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 
 @Service("mailService")
 public class EmailServiceImpl implements EmailService  {
