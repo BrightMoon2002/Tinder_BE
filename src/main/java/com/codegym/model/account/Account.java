@@ -1,11 +1,10 @@
 package com.codegym.model.account;
 
-import com.codegym.model.receipt.Assessment;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,6 +44,7 @@ public class Account  {
     private Set<Role> roles;
 
     @OneToOne(mappedBy = "account")
+    @JoinColumn(nullable = true)
     private Staff staff;
 
     @OneToOne(mappedBy = "account")
@@ -158,4 +158,6 @@ public class Account  {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }
