@@ -2,6 +2,7 @@ package com.codegym.model.account;
 
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import javax.persistence.*;
