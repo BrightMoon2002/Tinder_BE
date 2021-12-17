@@ -37,14 +37,4 @@ public class Checker {
     @JsonBackReference
     private List<Bill> billList;
 
-
-
-
-
-
-
-
-
-
-
 }
