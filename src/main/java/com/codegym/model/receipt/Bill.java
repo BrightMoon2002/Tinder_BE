@@ -14,8 +14,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "bills")
-@Data
-@NoArgsConstructor
 public class Bill {
 
     @Id
@@ -41,6 +39,10 @@ public class Bill {
     @OneToMany(targetEntity = BillOption.class, mappedBy = "bill")
     @JsonBackReference
     private List<BillOption> billOptionList;
+
+    public Bill() {
+    }
+
 
 
 
