@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h3>Send Mail</h3>
+    <form method="POST" th:action="@{/mails/send}" th:object="${mailObject}">
+        <fieldset>
+            <div style="float:left;">
+                <table cellspacing="0" width="300">
+                    <tr>
+                        <th><label for="input_to">To</label></th>
+                        <td><input path="to" id="input_to" type="email" th:field="*{to}"/>
+                            <small>Enter email address</small><br/>
+                            <errors path="to" cssStyle="color:red;font-size:small"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="input_subject">Subject</label></th>
+                        <td><input path="subject" id="input_subject" th:field="*{subject}"/>
+                            <small>Enter the subject</small><br/>
+                            <errors path="subject" cssStyle="color:red;font-size:small"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="input_text"></label></th>
+                        <td th:field="*{text}"><input id="input_text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <button type="submit">Send</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:left; word-wrap: break-word; margin-left: 50px; width: 400px; color: grey">
+                ${additionalInfo}
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

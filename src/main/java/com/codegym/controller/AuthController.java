@@ -39,7 +39,8 @@ public class AuthController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Account currentAccount = accountService.findByUsername(account.getUsername()).get();
-        return ResponseEntity.ok(new JwtResponse(jwt, currentAccount.getId(), userDetails.getUsername(), currentAccount.getFullName(), userDetails.getAuthorities()));
+        String a = userDetails.getAuthorities().toString();
+        return ResponseEntity.ok(new JwtResponse(jwt, currentAccount.getId(), userDetails.getUsername(), currentAccount.getFullName(),a ,userDetails.getAuthorities()));
     }
 
     @GetMapping("/helloStaff")
