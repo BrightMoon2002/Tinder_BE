@@ -59,11 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
                 //Set cho tat ca deu vao duoc
-                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills", "/api/accounts", "/api/checkers").permitAll()
+                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills", "/api/accounts", "/api/checkers", "/api/accounts/**").permitAll()
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/helloAdmin").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/helloStaff").access("hasRole('ROLE_STAFF')")
-                .antMatchers("/api/helloCustomer").access("hasRole('ROLE_CUSTOMER')")
+                .antMatchers("/api/helloChecker").access("hasRole('ROLE_CHECKER')")
                 .anyRequest().authenticated()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

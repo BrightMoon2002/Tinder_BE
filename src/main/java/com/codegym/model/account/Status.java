@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+//@Data
+//@NoArgsConstructor
 @Table(name = "status")
 public class Status implements Serializable {
     @Id
@@ -24,22 +26,16 @@ public class Status implements Serializable {
     @JsonIgnore
     private List<Account> accounts;
 
-    public Status() {
-    }
-
-    public Status(Long id, String name, List<Account> accounts) {
+    public Status(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.accounts = accounts;
-    }
-
-    public Status(String name, List<Account> accounts) {
-        this.name = name;
-        this.accounts = accounts;
     }
 
     public Status(String name) {
         this.name = name;
+    }
+
+    public Status() {
     }
 
     public Long getId() {
