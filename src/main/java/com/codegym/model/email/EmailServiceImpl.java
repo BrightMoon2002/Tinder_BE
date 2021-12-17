@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService  {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setSubject(mail.getMailSubject());
-            mimeMessageHelper.setFrom(new InternetAddress(mail.getMailFrom(), "com.codegym"));
+            mimeMessageHelper.setFrom(new InternetAddress(mail.getMailFrom(), "TinderWindy"));
             mimeMessageHelper.setTo(mail.getMailTo());
             mimeMessageHelper.setText(mail.getMailContent());
 
