@@ -40,9 +40,10 @@ public class RestBillController {
 
     @GetMapping
     public ResponseEntity<Iterable<Bill>> getAll() {
-        MailObject mailObject = new MailObject("hoangbaoanhng18@gmail.com", "hieudaohn94@gmail.com", "sign in successful", "congratulation Hieu to is first member in tinder windy club, click to: http://localhost:8080/ to dating with KAX ");
-        emailService.sendSimpleMessage(mailObject);
-        return new ResponseEntity<>(billService.findAll(), HttpStatus.OK);
+//        MailObject mailObject = new MailObject("hoangbaoanhng18@gmail.com", "hieudaohn94@gmail.com", "sign in successful", "congratulation Hieu to is first member in tinder windy club, click to: http://localhost:8080/ to dating with KAX ");
+//        emailService.sendSimpleMessage(mailObject);
+        Iterable<Bill> bills = billService.findAll();
+        return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -60,7 +61,7 @@ public class RestBillController {
         return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
         return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);

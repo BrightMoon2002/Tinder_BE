@@ -2,6 +2,7 @@ package com.codegym.model.account;
 
 import com.codegym.model.account.Account;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,7 @@ public class Status implements Serializable {
     private String name;
 
     @OneToMany(targetEntity = Account.class, mappedBy = "status", cascade = CascadeType.PERSIST)
-    @JsonBackReference
+    @JsonIgnore
     private List<Account> accounts;
 
     public Status() {

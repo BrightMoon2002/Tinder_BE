@@ -1,6 +1,7 @@
 package com.codegym.model.receipt;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,11 +22,11 @@ public class Option {
     private double price;
 
     @OneToMany(targetEntity = StaffOption.class, mappedBy = "option")
-    @JsonBackReference
+    @JsonIgnore
     private List<StaffOption> staffOptionList;
 
     @OneToMany(targetEntity = BillOption.class, mappedBy = "option")
-    @JsonBackReference
+    @JsonIgnore
     private List<BillOption> billOptionList;
 
 
