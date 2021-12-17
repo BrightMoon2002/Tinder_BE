@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
                 //Set cho tat ca deu vao duoc
-                .antMatchers("/", "/api/login", "/mails", "/mails/send").permitAll()
+                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills").permitAll()
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/helloAdmin").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/helloStaff").access("hasRole('ROLE_STAFF')")

@@ -48,8 +48,7 @@ public class MailController {
     @PostMapping("/send")
     public String createMail(Model model,
                              @ModelAttribute("mailObject") MailObject mailObject) {
-        emailService.sendSimpleMessage(mailObject.getTo(),
-                mailObject.getSubject(), mailObject.getText());
+        emailService.sendSimpleMessage(new MailObject());
 
         return "/email";
     }
