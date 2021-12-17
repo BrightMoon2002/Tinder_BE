@@ -1,6 +1,7 @@
 package com.codegym.model.receipt;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.w3c.dom.stylesheets.LinkStyle;
@@ -20,6 +21,6 @@ public class BillStatus {
     private String name;
 
     @OneToMany(targetEntity = Bill.class, mappedBy = "billStatus")
-    @JsonBackReference
+    @JsonIgnore
     private List<Bill> billList;
 }

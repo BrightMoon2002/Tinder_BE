@@ -3,6 +3,7 @@ package com.codegym.model.receipt;
 import com.codegym.model.account.Account;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Assessment {
 //    private Staff receiver;
 
     @OneToOne(targetEntity = Bill.class, mappedBy = "assessment")
+    @JsonIgnore
     private Bill bill;
 
     private String content;

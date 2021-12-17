@@ -20,10 +20,11 @@ public class Gender {
     private String name;
 
     @OneToMany(targetEntity = Staff.class, mappedBy = "gender")
-    @JsonBackReference
+    @JsonIgnore
     private List<Staff> staffList;
 
     @OneToMany(targetEntity = Checker.class, mappedBy = "gender")
+    @JsonIgnore
     private List<Checker> checkerList;
 
 

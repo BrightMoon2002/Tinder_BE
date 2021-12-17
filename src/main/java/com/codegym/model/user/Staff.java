@@ -4,6 +4,7 @@ import com.codegym.model.account.Account;
 import com.codegym.model.receipt.Bill;
 import com.codegym.model.receipt.StaffOption;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,15 +34,15 @@ public class Staff {
 
 
     @OneToMany(targetEntity = Avatar.class, mappedBy = "staff")
-    @JsonBackReference
+    @JsonIgnore
     private List<Avatar> avatarList;
 
     @OneToMany(targetEntity = Avatar.class, mappedBy = "staff")
-    @JsonBackReference
+    @JsonIgnore
     private List<Bill> billList;
 
     @OneToMany(targetEntity = StaffOption.class, mappedBy = "staff")
-    @JsonBackReference
+    @JsonIgnore
     private List<StaffOption> staffOptionList;
 
     @OneToOne
