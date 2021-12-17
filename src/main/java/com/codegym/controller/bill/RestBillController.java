@@ -43,9 +43,9 @@ public class RestBillController {
     @GetMapping
     public ResponseEntity<Iterable<Bill>> getAll() {
         MailObject mailObject = new MailObject("hoangbaoanhng18@gmail.com", "hieudaohn94@gmail.com", "sign in successful", "congratulation Hieu to is first member in tinder windy club, click to: http://localhost:8080/ to dating with KAX ");
-        System.out.printf(mailObject.getMailSubject());
-        System.out.printf("aaa" + mailObject.getMailContent());
-        emailService.sendSimpleMessage(mailObject);
+//        System.out.printf(mailObject.getMailSubject());
+//        System.out.printf("aaa" + mailObject.getMailContent());
+//        emailService.sendSimpleMessage(mailObject);
         return new ResponseEntity<>(billService.findAll(), HttpStatus.OK);
     }
 

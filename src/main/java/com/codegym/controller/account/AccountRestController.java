@@ -2,6 +2,8 @@ package com.codegym.controller.account;
 
 
 import com.codegym.model.account.Account;
+import com.codegym.model.email.EmailService;
+import com.codegym.model.email.MailObject;
 import com.codegym.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ public class AccountRestController {
     @Autowired
     IAccountService accountService;
 
+    @Autowired
+    EmailService emailService;
+
     @GetMapping
     public ResponseEntity<Iterable<Account>> findAllAccount() {
         return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
@@ -25,6 +30,8 @@ public class AccountRestController {
     @PostMapping
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         accountService.save(account);
+        MailObject mailObject = new MailObject("hoangbaoanh18@gmail.com",account.getEmail(),"signinsuccessfull",account.getFullName() + "create succesfull");
+        emailService.sendSimpleMessage(mailObject);
         return new ResponseEntity<>(account,HttpStatus.CREATED);
     }
 
