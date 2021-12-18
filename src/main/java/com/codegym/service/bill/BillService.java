@@ -1,6 +1,7 @@
 package com.codegym.service.bill;
 
 import com.codegym.model.receipt.Bill;
+import com.codegym.model.user.Staff;
 import com.codegym.repository.bill.IBillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,5 +39,10 @@ public class BillService implements IBillService{
     @Override
     public Page<Bill> findAll(Pageable pageable) {
         return billRepository.findAll(pageable);
+    }
+
+    @Override
+    public Iterable<Bill> findAllByStaff(Staff staff) {
+        return billRepository.findAllByStaff(staff);
     }
 }
