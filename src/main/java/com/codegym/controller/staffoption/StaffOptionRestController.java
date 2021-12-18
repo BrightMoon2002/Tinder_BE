@@ -54,5 +54,4 @@ public class StaffOptionRestController {
         staffOptionService.remove(id);
         return new ResponseEntity<>(staffOption.get(),HttpStatus.NO_CONTENT);
     }
-
 }

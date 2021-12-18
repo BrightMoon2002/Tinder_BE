@@ -51,4 +51,9 @@ public class BillService implements IBillService{
     public Iterable<Bill> findAllByChecker(Checker checker) {
         return billRepository.findAllByChecker(checker);
     }
+
+    @Override
+    public Iterable<Bill> findAllByStaffIdAndBillStatusId(Long idStaff, Long idStatus) {
+        return billRepository.findAllByStaffIdAndBillStatusId(idStaff,idStatus);
+    }
 }
