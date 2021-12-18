@@ -8,4 +8,5 @@ import com.codegym.service.IGeneralService;
 public interface IBillService extends IGeneralService<Bill> {
     Iterable<Bill> findAllByStaff(Staff staff);
     Iterable<Bill> findAllByChecker(Checker checker);
+    Iterable<Bill> findAllByStaffIdAndBillStatusId(Long idStaff,Long idStatus);
 }

@@ -200,5 +200,10 @@ public class RestBillController {
         }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
+    @GetMapping("/showByStaffAndStatus/{idStaff}/{idStatus}")
+    public ResponseEntity<Iterable<Bill>> showByChecker(@PathVariable Long idStaff,@PathVariable Long idStatus){
+        Iterable<Bill> billOptional = billService.findAllByStaffIdAndBillStatusId(idStaff,idStatus);
+        return new ResponseEntity<>(billOptional, HttpStatus.OK);
+    }
 
 }

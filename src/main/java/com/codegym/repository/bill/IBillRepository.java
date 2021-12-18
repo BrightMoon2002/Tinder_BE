@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface IBillRepository extends JpaRepository<Bill, Long> {
     Iterable<Bill> findAllByStaff(Staff staff);
     Iterable<Bill> findAllByChecker(Checker checker);
+    Iterable<Bill> findAllByStaffIdAndBillStatusId(Long idStaff,Long idStatus);
 }
