@@ -1,9 +1,13 @@
 package com.codegym.controller.checker;
 
+import com.codegym.model.account.Account;
+import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Option;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.codegym.service.account.IAccountService;
 import com.codegym.service.checker.ICheckerService;
+import com.codegym.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +25,12 @@ public class CheckerRestController {
     @Autowired
     ICheckerService checkerService;
 
+    @Autowired
+    EmailServiceImpl emailService;
+
+    @Autowired
+    IAccountService accountService;
+
     @GetMapping
     public ResponseEntity<Iterable<Checker>> findAllCheckers() {
         return new ResponseEntity<>(checkerService.findAll(), HttpStatus.OK);
@@ -28,7 +38,10 @@ public class CheckerRestController {
 
     @PostMapping
     public ResponseEntity<Checker> saveChecker(@RequestBody Checker checker) {
+        Optional<Account> account = accountService.findById(checker.getAccount().getId());
         checkerService.save(checker);
+        MailObject mailObject = new MailObject("noreply@tinderwindy.com", account.get().getEmail(), "Account Tinder Windy Verified", "Welcome to Tinder Windy. Please click on the link below to verify this account!!" +"\nhttp://localhost:8080/api/accounts/verify/" + account.get().getId());
+        emailService.sendSimpleMessage(mailObject);
         return new ResponseEntity<>(checker,HttpStatus.CREATED);
     }
 
