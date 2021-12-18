@@ -88,7 +88,7 @@ public class CheckerRestController {
     @GetMapping("/findDTO/{id}")
     public ResponseEntity<CheckerDTO> findDTOById(@PathVariable Long id) {
         Optional<Checker> checker = checkerService.findById(id);
-        CheckerDTO checkerDTO = new CheckerDTO(checker.get().getId().toString(), checker.get().getAccount().getId().toString(), checker.get().getName(), checker.get().getDob(), checker.get().getGender().getName(), checker.get().getIdentity(), checker.get().getAddress(), checker.get().getCity(), checker.get().getHobbies(), checker.get().getDescription(), checker.get().getUrl_facebook());
+        CheckerDTO checkerDTO = new CheckerDTO(checker.get().getId(), checker.get().getAccount().getId(), checker.get().getName(), checker.get().getDob(), checker.get().getGender().getName(), checker.get().getIdentity(), checker.get().getAddress(), checker.get().getCity(), checker.get().getHobbies(), checker.get().getDescription(), checker.get().getUrl_facebook());
         if (!checker.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

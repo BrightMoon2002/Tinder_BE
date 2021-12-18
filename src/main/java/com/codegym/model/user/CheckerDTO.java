@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 public class CheckerDTO {
 
-    private String id ="";
-    private String account_id="";
+    private Long id ;
+    private Long account_id;
     private String name="";
     private String dob="";
     private String gender="";
@@ -21,7 +21,7 @@ public class CheckerDTO {
     public CheckerDTO() {
     }
 
-    public CheckerDTO(String id, String account_id, String name, String dob, String gender, String identity, String address, String city, String hobbies, String description, String url_facebook) {
+    public CheckerDTO(Long id, Long account_id, String name, String dob, String gender, String identity, String address, String city, String hobbies, String description, String url_facebook) {
         this.id = id;
         this.account_id = account_id;
         this.name = name;
@@ -35,19 +35,19 @@ public class CheckerDTO {
         this.url_facebook = url_facebook;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getAccount_id() {
+    public Long getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(String account_id) {
+    public void setAccount_id(Long account_id) {
         this.account_id = account_id;
     }
 
