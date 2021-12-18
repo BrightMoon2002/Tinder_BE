@@ -2,6 +2,9 @@ package com.codegym.controller.bill;
 
 import com.codegym.model.receipt.BillDTO;
 import com.codegym.model.receipt.BillStatus;
+import com.codegym.model.user.Checker;
+import com.codegym.model.user.Staff;
+import com.codegym.service.checker.ICheckerService;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Bill;
@@ -42,6 +45,9 @@ public class RestBillController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private ICheckerService checkerService;
 
     @GetMapping
     public ResponseEntity<Iterable<BillDTO>> getAll() {
@@ -130,6 +136,69 @@ public class RestBillController {
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
         }
     }
+    @PutMapping("/cancelStatus/{id}")
+    public ResponseEntity<Bill> cancelStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 1) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 5L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
+            MailObject mailObject = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your order has been Cancelled", billOptional.get().getStaff().getName() + " is busy. Please login and choose other staff. So sorry for this inconvenient and thank u so much!");
+            emailService.sendSimpleMessage(mailObject);
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
 
+    @PutMapping("/setStatusCompleted/{id}")
+    public ResponseEntity<Bill> completedStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 2) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 4L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
+            MailObject mailObject1 = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your Date completed", "Thank for use our service! Best wish for u");
+            emailService.sendSimpleMessage(mailObject1);
+            MailObject mailObject2 = new MailObject("noreply@tinderwindy.com", billOptional.get().getStaff().getAccount().getEmail(), "Your Date completed", "Thank you for your co-oparation! your payment request has been processed");
+            emailService.sendSimpleMessage(mailObject2);
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
+
+//    @GetMapping("/showCheckerByUserName/{id}")
+//    public ResponseEntity<BillDTO> showByChecker(@PathVariable String userName) {
+//
+//    }
+
+    @GetMapping("/showByStaff/{id}")
+    public ResponseEntity<Iterable<Bill>> showByStaff(@PathVariable Long id) {
+        Optional<Staff> staff = staffService.findById(id);
+        if (!staff.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Bill> bills = billService.findAllByStaff(staff.get());
+        if (bills == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/showByChecker/{id}")
+    public ResponseEntity<Iterable<Bill>> showByChecker(@PathVariable Long id) {
+        Optional<Checker> checker = checkerService.findById(id);
+        if (!checker.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Bill> bills = billService.findAllByChecker(checker.get());
+        if (bills == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
 
 }
