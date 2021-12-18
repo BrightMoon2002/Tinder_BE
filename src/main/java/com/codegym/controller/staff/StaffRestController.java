@@ -2,10 +2,12 @@ package com.codegym.controller.staff;
 
 import com.codegym.model.receipt.Bill;
 import com.codegym.model.receipt.BillDTO;
+import com.codegym.model.receipt.StaffOption;
 import com.codegym.model.user.Staff;
 import com.codegym.model.user.StaffDTO;
 import com.codegym.service.staff.IStaffService;
 import com.codegym.service.staff.StaffService;
+import com.codegym.service.staffoption.IStaffOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +25,21 @@ public class StaffRestController {
     @Autowired
     IStaffService staffService;
 
+    @Autowired
+    IStaffOptionService staffOptionService;
+
     @GetMapping
     public ResponseEntity<Iterable<Staff>> findAllStaff() {
         return new ResponseEntity<>(staffService.findAll(), HttpStatus.OK);
     }
     @GetMapping("/allstaff")
     public ResponseEntity<Iterable<StaffDTO>> getAll() {
-        Iterable<Staff> staff = staffService.findAll();
+        Iterable<Staff> staffIterable = staffService.findAll();
         List<StaffDTO> staffDTOList = new ArrayList<>();
-        for (Staff b: staff
+        for (Staff b: staffIterable
         ) {
-            staffDTOList.add( new StaffDTO(
+
+            StaffDTO staffDTO = new StaffDTO(
                     b.getId(),
                     b.getGender().getName(),
                     b.getName(),
@@ -42,11 +48,35 @@ public class StaffRestController {
                     b.getNationality(),
                     b.getHeight(),
                     b.getWeight(),
-                    b.getDescription(),b.getAvatarList().get(0).toString()));
+                    b.getDescription());
+
+
+
+            List<String> optionsTemp = new ArrayList<>();
+            for (StaffOption s: staffOptionService.findAll()) {
+                if (s.getStaff().getId().equals(b.getId())) {
+                    optionsTemp.add(s.getOption().getName());
+                }
+            }
+
+            String options = String.join(", ",optionsTemp);
+            staffDTO.setAvatarUrl1(b.getAvatarList().get(0).getImage());
+            staffDTO.setAvatarUrl2(b.getAvatarList().get(1).getImage());
+            staffDTO.setAvatarUrl3(b.getAvatarList().get(2).getImage());
+            staffDTO.setOptions(options);
+            staffDTOList.add(staffDTO);
+
+
+
+
+
         }
-        System.out.println(staffDTOList);
-        Iterable<StaffDTO> staffDTOS = staffDTOList;
-        return new ResponseEntity<>(staffDTOS, HttpStatus.OK);
+
+
+
+
+
+        return new ResponseEntity<>(staffDTOList, HttpStatus.OK);
     }
 
     @PostMapping
