@@ -1,9 +1,11 @@
 package com.codegym.controller.bill;
 
+import com.codegym.model.account.Account;
 import com.codegym.model.receipt.BillDTO;
 import com.codegym.model.receipt.BillStatus;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.codegym.service.account.IAccountService;
 import com.codegym.service.checker.ICheckerService;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
@@ -33,6 +35,9 @@ public class RestBillController {
 
     @Autowired
     private IBillService billService;
+
+    @Autowired
+    private IAccountService accountService;
 
     @Autowired
     private IBillOptionService billOptionService;
@@ -81,6 +86,15 @@ public class RestBillController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
+        Account accountChecker = bill.getChecker().getAccount();
+        double amountChecker = accountChecker.getBalance() - bill.getAmount();
+        accountChecker.setBalance(amountChecker);
+        accountService.save(accountChecker);
+
+        Optional<Account> accountAdmin = accountService.findById(1L);
+        double amountAdmin = accountAdmin.get().getBalance() + bill.getAmount();
+        accountAdmin.get().setBalance(amountAdmin);
+        accountService.save(accountAdmin.get());
         return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
     }
 
@@ -146,6 +160,16 @@ public class RestBillController {
             BillStatus billStatus = billStatusService.findById(idStatus).get();
             billOptional.get().setBillStatus(billStatus);
             billService.save(billOptional.get());
+            //calculator money
+            Account accountChecker = billOptional.get().getChecker().getAccount();
+            double amountChecker = accountChecker.getBalance() + billOptional.get().getAmount();
+            accountChecker.setBalance(amountChecker);
+            accountService.save(accountChecker);
+
+            Optional<Account> accountAdmin = accountService.findById(1L);
+            double amountAdmin = accountAdmin.get().getBalance() - billOptional.get().getAmount();
+            accountAdmin.get().setBalance(amountAdmin);
+            accountService.save(accountAdmin.get());
             MailObject mailObject = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your order has been Cancelled", billOptional.get().getStaff().getName() + " is busy. Please login and choose other staff. So sorry for this inconvenient and thank u so much!");
             emailService.sendSimpleMessage(mailObject);
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
@@ -155,15 +179,60 @@ public class RestBillController {
     @PutMapping("/setStatusCompleted/{id}")
     public ResponseEntity<Bill> completedStatusBill(@PathVariable Long id) {
         Optional<Bill> billOptional = billService.findById(id);
-        if (billOptional.get().getBillStatus().getId() != 2) {
+        if (billOptional.get().getBillStatus().getId() != 6) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             Long idStatus = 4L;
             BillStatus billStatus = billStatusService.findById(idStatus).get();
             billOptional.get().setBillStatus(billStatus);
             billService.save(billOptional.get());
+            // tính tiền
+            double amount = billOptional.get().getAmount();
+            double amountStaff = amount * 70/100;
+            Optional<Staff> staff = staffService.findById(billOptional.get().getStaff().getId());
+            // cần tìm 1 account có staff như trên
+            Account account = staff.get().getAccount();
+            double amountAccount = account.getBalance() + amountStaff;
+            account.setBalance(amountAccount);
+            Optional<Account> accountAdmin = accountService.findById(1L);
+            double amountAdmin = accountAdmin.get().getBalance() - amountStaff;
+            accountAdmin.get().setBalance(amountAdmin);
+            accountService.save(accountAdmin.get());
+            accountService.save(account);
+            MailObject mailObject2 = new MailObject("noreply@tinderwindy.com", billOptional.get().getStaff().getAccount().getEmail(), "Your Date completed", "Thank you for your co-oparation! your payment request has been processed");
+            emailService.sendSimpleMessage(mailObject2);
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/setStatusProcessing/{id}")
+    public ResponseEntity<Bill> processingStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 2) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 3L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
             MailObject mailObject1 = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your Date completed", "Thank for use our service! Best wish for u");
             emailService.sendSimpleMessage(mailObject1);
+            MailObject mailObject2 = new MailObject("noreply@tinderwindy.com", billOptional.get().getStaff().getAccount().getEmail(), "Your Date completed", "Thank you for your co-oparation!");
+            emailService.sendSimpleMessage(mailObject2);
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/setStatusRequestMoney/{id}")
+    public ResponseEntity<Bill> requestMoneyStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 3) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 6L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
             MailObject mailObject2 = new MailObject("noreply@tinderwindy.com", billOptional.get().getStaff().getAccount().getEmail(), "Your Date completed", "Thank you for your co-oparation! your payment request has been processed");
             emailService.sendSimpleMessage(mailObject2);
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
