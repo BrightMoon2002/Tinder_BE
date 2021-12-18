@@ -17,7 +17,6 @@ public class Checker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    @JsonIgnore
     private Account account;
 
     private String name;
@@ -173,4 +172,5 @@ public class Checker {
     public void setBillList(List<Bill> billList) {
         this.billList = billList;
     }
+
 }

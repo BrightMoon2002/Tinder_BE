@@ -1,5 +1,6 @@
 package com.codegym.controller.bill;
 
+import com.codegym.model.receipt.BillDTO;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Bill;
@@ -16,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -39,11 +43,17 @@ public class RestBillController {
     private EmailService emailService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Bill>> getAll() {
+    public ResponseEntity<Iterable<BillDTO>> getAll() {
 //        MailObject mailObject = new MailObject("hoangbaoanhng18@gmail.com", "hieudaohn94@gmail.com", "sign in successful", "congratulation Hieu to is first member in tinder windy club, click to: http://localhost:8080/ to dating with KAX ");
 //        emailService.sendSimpleMessage(mailObject);
         Iterable<Bill> bills = billService.findAll();
-        return new ResponseEntity<>(bills, HttpStatus.OK);
+        List<BillDTO> billDTOList = new ArrayList<>();
+        for (Bill b: bills
+             ) {
+            billDTOList.add(new BillDTO(b.getId().toString(), b.getDateOrder().toString(), b.getDateEnd().toString(), b.getAmount(), b.getStaff().getAccount().getUsername(), b.getChecker().getAccount().getUsername(), b.getBillStatus().getName()));
+        }
+        Iterable<BillDTO> billDTOS = billDTOList;
+        return new ResponseEntity<>(billDTOS, HttpStatus.OK);
     }
 
     @GetMapping("/")

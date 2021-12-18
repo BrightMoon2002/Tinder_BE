@@ -60,11 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //Set cho tat ca deu vao duoc
                 .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills", "/api/accounts*","/api/genders","/api/staffs","/api/avatar*").permitAll()
-
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/helloAdmin").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/helloStaff").access("hasRole('ROLE_STAFF')")
-                .antMatchers("/api/helloCustomer").access("hasRole('ROLE_CUSTOMER')")
+                .antMatchers("/api/helloChecker").access("hasRole('ROLE_CHECKER')")
                 .anyRequest().authenticated()
                 .and().csrf().disable();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
