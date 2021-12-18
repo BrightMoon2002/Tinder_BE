@@ -4,6 +4,7 @@ import com.codegym.model.account.Account;
 import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Option;
 import com.codegym.model.user.Checker;
+import com.codegym.model.user.CheckerDTO;
 import com.codegym.model.user.Staff;
 import com.codegym.service.account.IAccountService;
 import com.codegym.service.checker.ICheckerService;
@@ -76,10 +77,21 @@ public class CheckerRestController {
     }
     @GetMapping("/find/{idAccount}")
     public ResponseEntity<Checker> findByAccountID(@PathVariable Long idAccount){
-        Optional<Checker> staff = checkerService.findAllByAccount_Id(idAccount);
-        if(!staff.isPresent()){
+        Optional<Checker> checker = checkerService.findAllByAccount_Id(idAccount);
+        if(!checker.isPresent()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(staff.get(), HttpStatus.OK);
+        return new ResponseEntity<>(checker.get(), HttpStatus.OK);
+    }
+
+    //Checker's own APIs
+    @GetMapping("/findDTO/{id}")
+    public ResponseEntity<CheckerDTO> findDTOById(@PathVariable Long id) {
+        Optional<Checker> checker = checkerService.findById(id);
+        CheckerDTO checkerDTO = new CheckerDTO(checker.get().getId().toString(), checker.get().getAccount().getId().toString(), checker.get().getName(), checker.get().getDob(), checker.get().getGender().getName(), checker.get().getIdentity(), checker.get().getAddress(), checker.get().getCity(), checker.get().getHobbies(), checker.get().getDescription(), checker.get().getUrl_facebook());
+        if (!checker.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(checkerDTO, HttpStatus.OK);
     }
 }
