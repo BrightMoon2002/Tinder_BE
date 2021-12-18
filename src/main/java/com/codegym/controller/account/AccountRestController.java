@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -38,6 +39,10 @@ public class AccountRestController {
 
     @PostMapping
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
+        if (account.getId() == null) {
+            LocalDate date = LocalDate.now();
+            account.setDateSignIn(date);
+        }
         accountService.save(account);
         return new ResponseEntity<>(account,HttpStatus.CREATED);
     }
@@ -86,6 +91,30 @@ public class AccountRestController {
         }
         accountService.remove(id);
         return new ResponseEntity<>(account.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/blockAccount/{id}")
+    public ResponseEntity<Account> blockAccount(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Status status = statusService.findById(3L).get();
+        accountOptional.get().setStatus(status);
+        accountService.save(accountOptional.get());
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/unBlockAccount/{id}")
+    public ResponseEntity<Account> unBlockAccount(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Status status = statusService.findById(2L).get();
+        accountOptional.get().setStatus(status);
+        accountService.save(accountOptional.get());
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
     }
 
 }

@@ -2,6 +2,7 @@ package com.codegym.service.account;
 
 import com.codegym.model.account.Account;
 import com.codegym.model.account.UserPrinciple;
+import com.codegym.model.user.Staff;
 import com.codegym.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,5 +60,10 @@ public class AccountService implements IAccountService {
     public Optional<Account> findByUsername(String username) {
         System.out.println(username);
         return accountRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<Account> findAccountByStaff(Staff staff) {
+        return accountRepository.findAccountByStaff(staff);
     }
 }

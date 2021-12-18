@@ -60,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //Set cho tat ca deu vao duoc
 
-                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills", "/api/accounts*","/api/genders","/api/staffs*","/api/staffs/**","/api/avatar*","/api/checkers/**", "/api/bills/view/**", "/api/bills/editStatus/**", "/api/bills/showByStaff/**", "/api/bills/showByChecker/**", "/api/bills/cancelStatus/**", "/api/accounts/verify/**","/api/options**", "/api/staffoption**","/api/staffoption/**","/api/avatar/**").permitAll()
+                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/bills", "/api/accounts*","/api/genders","/api/staffs*","/api/staffs/**","/api/avatar*","/api/checkers/**", "/api/bills/view/**", "/api/bills/editStatus/**", "/api/bills/showByStaff/**", "/api/bills/showByChecker/**", "/api/bills/cancelStatus/**", "/api/bills/setStatusCompleted/**", "/api/bills/setStatusRequestMoney/**", "/api/accounts/unBlockAccount/**", "/api/accounts/blockAccount/**", "/api/accounts/verify/**","/api/options**", "/api/staffoption**","/api/staffoption/**","/api/avatar/**").permitAll()
+
 
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/helloAdmin").access("hasRole('ROLE_ADMIN')")

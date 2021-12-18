@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,9 @@ public class Account  {
     @ManyToOne(targetEntity = Status.class)
     @JoinColumn
     private Status status;
+
+    @Column
+    private LocalDate dateSignIn;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
