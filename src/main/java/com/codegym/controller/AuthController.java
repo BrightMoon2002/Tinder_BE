@@ -16,6 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api")
@@ -40,7 +43,8 @@ public class AuthController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Account currentAccount = accountService.findByUsername(account.getUsername()).get();
         String a = userDetails.getAuthorities().toString();
-        return ResponseEntity.ok(new JwtResponse(jwt, currentAccount.getId(), userDetails.getUsername(), currentAccount.getFullName(),a ,userDetails.getAuthorities()));
+        String status = (currentAccount.getStatus().getName());
+        return ResponseEntity.ok(new JwtResponse(jwt, currentAccount.getId(), userDetails.getUsername(), currentAccount.getFullName(),a,status,userDetails.getAuthorities()));
     }
 
     @GetMapping("/helloStaff")

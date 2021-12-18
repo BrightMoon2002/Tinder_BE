@@ -38,4 +38,9 @@ public class StaffService implements IStaffService{
     public Page<Staff> findAll(Pageable pageable) {
         return staffRepository.findAll(pageable);
     }
+
+    @Override
+    public Optional<Staff> findAllByAccount_Id(Long id) {
+        return staffRepository.findAllByAccount_Id(id);
+    }
 }

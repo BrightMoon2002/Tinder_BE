@@ -39,4 +39,9 @@ public class CheckerService implements ICheckerService{
     public Page<Checker> findAll(Pageable pageable) {
         return checkerRepository.findAll(pageable);
     }
+
+    @Override
+    public Optional<Checker> findAllByAccount_Id(Long id) {
+        return checkerRepository.findAllByAccount_Id(id);
+    }
 }

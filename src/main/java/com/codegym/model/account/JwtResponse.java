@@ -11,15 +11,17 @@ public class JwtResponse {
     private String username;
     private String name;
     private String oneRole;
+    private String status;
     private Collection<? extends GrantedAuthority> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, String name,String oneRole ,Collection<? extends GrantedAuthority> roles) {
+    public JwtResponse(String accessToken, Long id, String username, String name,String oneRole ,String status,Collection<? extends GrantedAuthority> roles) {
         this.token = accessToken;
         this.username = username;
         this.roles = roles;
         this.name = name;
         this.id = id;
         this.oneRole = oneRole;
+        this.status = status;
     }
 
     public JwtResponse(String accessToken, String type, String username, String name, String oneRole, Collection<? extends GrantedAuthority> roles) {
@@ -37,6 +39,14 @@ public class JwtResponse {
         this.username = username;
         this.name = name;
         this.oneRole = oneRole;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {

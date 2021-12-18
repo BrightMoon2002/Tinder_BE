@@ -2,6 +2,7 @@ package com.codegym.controller.checker;
 
 import com.codegym.model.receipt.Option;
 import com.codegym.model.user.Checker;
+import com.codegym.model.user.Staff;
 import com.codegym.service.checker.ICheckerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,5 +60,13 @@ public class CheckerRestController {
         }
         checkerService.remove(id);
         return new ResponseEntity<>(checker.get(), HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/find/{idAccount}")
+    public ResponseEntity<Checker> findByAccountID(@PathVariable Long idAccount){
+        Optional<Checker> staff = checkerService.findAllByAccount_Id(idAccount);
+        if(!staff.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(staff.get(), HttpStatus.OK);
     }
 }

@@ -55,4 +55,12 @@ public class StaffRestController {
         staffService.remove(id);
         return new ResponseEntity<>(staff.get(),HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/find/{idAccount}")
+    public ResponseEntity<Staff> findByAccountID(@PathVariable Long idAccount){
+        Optional<Staff> staff = staffService.findAllByAccount_Id(idAccount);
+        if(!staff.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(staff.get(), HttpStatus.OK);
+    }
 }
