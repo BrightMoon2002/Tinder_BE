@@ -88,4 +88,28 @@ public class AccountRestController {
         return new ResponseEntity<>(account.get(), HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/blockAccount/{id}")
+    public ResponseEntity<Account> blockAccount(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Status status = statusService.findById(3L).get();
+        accountOptional.get().setStatus(status);
+        accountService.save(accountOptional.get());
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/unBlockAccount/{id}")
+    public ResponseEntity<Account> unBlockAccount(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Status status = statusService.findById(2L).get();
+        accountOptional.get().setStatus(status);
+        accountService.save(accountOptional.get());
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
 }

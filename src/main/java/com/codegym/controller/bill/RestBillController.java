@@ -160,6 +160,16 @@ public class RestBillController {
             BillStatus billStatus = billStatusService.findById(idStatus).get();
             billOptional.get().setBillStatus(billStatus);
             billService.save(billOptional.get());
+            //calculator money
+            Account accountChecker = billOptional.get().getChecker().getAccount();
+            double amountChecker = accountChecker.getBalance() + billOptional.get().getAmount();
+            accountChecker.setBalance(amountChecker);
+            accountService.save(accountChecker);
+
+            Optional<Account> accountAdmin = accountService.findById(1L);
+            double amountAdmin = accountAdmin.get().getBalance() - billOptional.get().getAmount();
+            accountAdmin.get().setBalance(amountAdmin);
+            accountService.save(accountAdmin.get());
             MailObject mailObject = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your order has been Cancelled", billOptional.get().getStaff().getName() + " is busy. Please login and choose other staff. So sorry for this inconvenient and thank u so much!");
             emailService.sendSimpleMessage(mailObject);
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
