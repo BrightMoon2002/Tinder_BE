@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -38,6 +39,10 @@ public class AccountRestController {
 
     @PostMapping
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
+        if (account.getId() == null) {
+            LocalDate date = LocalDate.now();
+            account.setDateSignIn(date);
+        }
         accountService.save(account);
         return new ResponseEntity<>(account,HttpStatus.CREATED);
     }
