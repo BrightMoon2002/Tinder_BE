@@ -136,6 +136,21 @@ public class RestBillController {
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
         }
     }
+    @PutMapping("/cancelStatus/{id}")
+    public ResponseEntity<Bill> cancelStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 1) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 5L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
+            MailObject mailObject = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your order has been Cancelled", billOptional.get().getStaff().getName() + " is busy. Please login and choose other staff. So sorry for this inconvenient and thank u so much!");
+            emailService.sendSimpleMessage(mailObject);
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
 
     @PutMapping("/setStatusCompleted/{id}")
     public ResponseEntity<Bill> completedStatusBill(@PathVariable Long id) {
