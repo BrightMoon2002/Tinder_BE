@@ -2,7 +2,9 @@ package com.codegym.controller.bill;
 
 import com.codegym.model.receipt.BillDTO;
 import com.codegym.model.receipt.BillStatus;
+import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
+import com.codegym.service.checker.ICheckerService;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Bill;
@@ -43,6 +45,9 @@ public class RestBillController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private ICheckerService checkerService;
 
     @GetMapping
     public ResponseEntity<Iterable<BillDTO>> getAll() {
@@ -162,6 +167,19 @@ public class RestBillController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Iterable<Bill> bills = billService.findAllByStaff(staff.get());
+        if (bills == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
+    @GetMapping("/showByChecker/{id}")
+    public ResponseEntity<Iterable<Bill>> showByChecker(@PathVariable Long id) {
+        Optional<Checker> checker = checkerService.findById(id);
+        if (!checker.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Bill> bills = billService.findAllByChecker(checker.get());
         if (bills == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -1,6 +1,7 @@
 package com.codegym.service.bill;
 
 import com.codegym.model.receipt.Bill;
+import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.codegym.repository.bill.IBillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,10 @@ public class BillService implements IBillService{
     @Override
     public Iterable<Bill> findAllByStaff(Staff staff) {
         return billRepository.findAllByStaff(staff);
+    }
+
+    @Override
+    public Iterable<Bill> findAllByChecker(Checker checker) {
+        return billRepository.findAllByChecker(checker);
     }
 }
