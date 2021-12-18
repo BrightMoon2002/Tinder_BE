@@ -10,7 +10,37 @@ public class StaffDTO {
     private double height;
     private double weight;
     private String description;
-    private String avatarList;
+    private String options;
+    private String avatarUrl1;
+    private String avatarUrl2;
+    private String avatarUrl3;
+
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String options) {
+        this.id = id;
+        this.genders = genders;
+        this.name = name;
+        this.dob = dob;
+        this.city = city;
+        this.nationality = nationality;
+        this.height = height;
+        this.weight = weight;
+        this.description = description;
+        this.options = options;
+    }
+
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description,String options, String avatarUrl1) {
+        this.id = id;
+        this.genders = genders;
+        this.name = name;
+        this.dob = dob;
+        this.city = city;
+        this.nationality = nationality;
+        this.height = height;
+        this.weight = weight;
+        this.description = description;
+        this.options = options;
+        this.avatarUrl1 = avatarUrl1;
+    }
 
     public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description) {
         this.id = id;
@@ -24,7 +54,7 @@ public class StaffDTO {
         this.description = description;
     }
 
-    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String avatarList) {
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String options, String avatarUrl1, String avatarUrl2) {
         this.id = id;
         this.genders = genders;
         this.name = name;
@@ -34,7 +64,27 @@ public class StaffDTO {
         this.height = height;
         this.weight = weight;
         this.description = description;
-        this.avatarList = avatarList;
+        this.options = options;
+        this.avatarUrl1 = avatarUrl1;
+        this.avatarUrl2 = avatarUrl2;
+
+    }
+
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String options, String avatarUrl1, String avatarUrl2, String avatarUrl3) {
+        this.id = id;
+        this.genders = genders;
+        this.name = name;
+        this.dob = dob;
+        this.city = city;
+        this.nationality = nationality;
+        this.height = height;
+        this.weight = weight;
+        this.description = description;
+        this.options = options;
+        this.avatarUrl1 = avatarUrl1;
+        this.avatarUrl2 = avatarUrl2;
+        this.avatarUrl3 = avatarUrl3;
+
     }
 
     public Long getId() {
@@ -109,11 +159,35 @@ public class StaffDTO {
         this.description = description;
     }
 
-    public String getAvatarList() {
-        return avatarList;
+    public String getAvatarUrl1() {
+        return avatarUrl1;
     }
 
-    public void setAvatarList(String avatarList) {
-        this.avatarList = avatarList;
+    public void setAvatarUrl1(String avatarUrl1) {
+        this.avatarUrl1 = avatarUrl1;
+    }
+
+    public String getAvatarUrl2() {
+        return avatarUrl2;
+    }
+
+    public void setAvatarUrl2(String avatarUrl2) {
+        this.avatarUrl2 = avatarUrl2;
+    }
+
+    public String getAvatarUrl3() {
+        return avatarUrl3;
+    }
+
+    public void setAvatarUrl3(String avatarUrl3) {
+        this.avatarUrl3 = avatarUrl3;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
     }
 }

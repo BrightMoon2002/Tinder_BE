@@ -1,14 +1,14 @@
 package com.codegym.controller.staffoption;
 
-import com.codegym.model.receipt.Option;
 import com.codegym.model.receipt.StaffOption;
-import com.codegym.model.user.Staff;
 import com.codegym.service.staffoption.IStaffOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,6 +44,20 @@ public class StaffOptionRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(staffOption.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/staff/{id}")
+    public ResponseEntity<Iterable<StaffOption>>findByStaffId(@PathVariable Long id){
+        List<StaffOption> staffOptionList = new ArrayList<>();
+        for (StaffOption s: staffOptionService.findAll()) {
+            if (s.getStaff().getId().equals(id)) {
+                staffOptionList.add(s);
+            }
+        }
+
+        Iterable<StaffOption> staffOptionIterable = (Iterable<StaffOption>) staffOptionList;
+
+        return new ResponseEntity<>(staffOptionIterable, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<StaffOption> delete(@PathVariable Long id){

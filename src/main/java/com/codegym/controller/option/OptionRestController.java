@@ -45,6 +45,7 @@ public class OptionRestController {
         }
         return new ResponseEntity<>(option.get(), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Option> delete(@PathVariable Long id){
         Optional<Option> option = optionService.findById(id);

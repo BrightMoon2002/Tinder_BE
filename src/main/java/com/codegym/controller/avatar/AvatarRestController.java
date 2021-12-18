@@ -1,5 +1,6 @@
 package com.codegym.controller.avatar;
 
+import com.codegym.model.receipt.StaffOption;
 import com.codegym.model.user.Avatar;
 import com.codegym.service.avatar.IAvatarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -45,6 +48,19 @@ public class AvatarRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(avatar.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/staff/{id}")
+    public ResponseEntity<Iterable<Avatar>> findByStaffId(@PathVariable Long id) {
+        List<Avatar> avatarList = new ArrayList<>();
+        for (Avatar a : avatarService.findAll()) {
+            if(a.getStaff().getId() == id) {
+                avatarList.add(a);
+            }
+        }
+
+        Iterable<Avatar> avatarIterable = (Iterable<Avatar>) avatarList;
+        return new ResponseEntity<>(avatarIterable, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
