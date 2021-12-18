@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 public class CheckerDTO {
 
-    private String id;
-    private String account_id;
-    private String name;
-    private String dob;
-    private String gender;
-    private String identity;
-    private String address;
-    private String city;
-    private String hobbies;
-    private String description;
-    private String url_facebook;
+    private String id ="";
+    private String account_id="";
+    private String name="";
+    private String dob="";
+    private String gender="";
+    private String identity="";
+    private String address="";
+    private String city="";
+    private String hobbies="";
+    private String description="";
+    private String url_facebook="";
 
     public CheckerDTO() {
     }
