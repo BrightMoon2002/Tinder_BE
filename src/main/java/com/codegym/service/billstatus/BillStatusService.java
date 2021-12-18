@@ -38,4 +38,9 @@ public class BillStatusService implements IBillStatusService {
     public Page<BillStatus> findAll(Pageable pageable) {
         return billStatusRepository.findAll(pageable);
     }
+
+    @Override
+    public BillStatus findBillStatusByName(String name) {
+        return billStatusRepository.findBillStatusByName(name);
+    }
 }

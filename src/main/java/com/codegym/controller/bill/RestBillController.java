@@ -1,6 +1,7 @@
 package com.codegym.controller.bill;
 
 import com.codegym.model.receipt.BillDTO;
+import com.codegym.model.receipt.BillStatus;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
 import com.codegym.model.receipt.Bill;
@@ -50,7 +51,7 @@ public class RestBillController {
         List<BillDTO> billDTOList = new ArrayList<>();
         for (Bill b: bills
              ) {
-            billDTOList.add(new BillDTO(b.getId().toString(), b.getDateOrder().toString(), b.getDateEnd().toString(), b.getAmount(), b.getStaff().getAccount().getUsername(), b.getChecker().getAccount().getUsername(), b.getBillStatus().getName()));
+            billDTOList.add(new BillDTO(b.getId(), b.getDateOrder(), b.getDateEnd(), b.getAmount(), b.getStaff().getAccount().getUsername(), b.getChecker().getAccount().getUsername(), b.getBillStatus().getName()));
         }
         Iterable<BillDTO> billDTOS = billDTOList;
         return new ResponseEntity<>(billDTOS, HttpStatus.OK);
@@ -88,6 +89,43 @@ public class RestBillController {
         return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
     }
 
+    @GetMapping("/view/{id}")
+    public ResponseEntity<BillDTO> showBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (!billOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Bill bill = billOptional.get();
+            BillDTO billDTO = new BillDTO(bill.getId(), bill.getDateOrder(),  bill.getDateEnd(), bill.getAmount(),  bill.getStaff().getAccount().getUsername(), bill.getChecker().getAccount().getUsername(), bill.getBillStatus().getName());
+            return new ResponseEntity<>(billDTO, HttpStatus.OK);
+        }
+    }
 
 
+    @PutMapping("/editStatus")
+    public ResponseEntity<Bill> editStatusBill(@RequestBody BillDTO billDTO) {
+        Optional<Bill> billOptional = billService.findById(billDTO.getId());
+        if (!billOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            BillStatus billStatus = billStatusService.findBillStatusByName(billDTO.getBillStatusName());
+            billOptional.get().setBillStatus(billStatus);
+            Bill bill = billService.save(billOptional.get());
+            return new ResponseEntity<>(bill, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/editStatus/{id}")
+    public ResponseEntity<Bill> acceptStatusBill(@PathVariable Long id) {
+        Optional<Bill> billOptional = billService.findById(id);
+        if (billOptional.get().getBillStatus().getId() != 1) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long idStatus = 2L;
+            BillStatus billStatus = billStatusService.findById(idStatus).get();
+            billOptional.get().setBillStatus(billStatus);
+            billService.save(billOptional.get());
+            return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+        }
+    }
 }
