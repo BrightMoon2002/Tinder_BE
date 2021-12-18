@@ -21,7 +21,6 @@ public class Staff {
     private Long id;
 
     @ManyToOne(targetEntity = Gender.class)
-
     private Gender gender;
 
     private String name;
@@ -37,7 +36,7 @@ public class Staff {
     @JsonIgnore
     private List<Avatar> avatarList;
 
-    @OneToMany(targetEntity = Avatar.class, mappedBy = "staff")
+    @OneToMany(targetEntity = Bill.class, mappedBy = "staff")
     @JsonIgnore
     private List<Bill> billList;
 

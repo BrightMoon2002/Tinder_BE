@@ -57,6 +57,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public Optional<Account> findByUsername(String username) {
+        System.out.println(username);
         return accountRepository.findByUsername(username);
     }
 }
