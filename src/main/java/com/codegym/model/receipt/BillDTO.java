@@ -1,13 +1,14 @@
 package com.codegym.model.receipt;
 
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
 
 public class BillDTO {
-    private String id;
+    private Long id;
 
-    private String dateOrder;
+    private LocalDateTime dateOrder;
 
-    private String dateEnd;
+    private LocalDateTime dateEnd;
 
     private double amount;
 
@@ -19,7 +20,7 @@ public class BillDTO {
 
     private String billStatusName;
 
-    public BillDTO(String id, String dateOrder, String dateEnd, double amount, String staffName, String checkerName, String assessmentContent, String billStatusName) {
+    public BillDTO(Long id, LocalDateTime dateOrder, LocalDateTime dateEnd, double amount, String staffName, String checkerName, String assessmentContent, String billStatusName) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.dateEnd = dateEnd;
@@ -33,7 +34,7 @@ public class BillDTO {
     public BillDTO() {
     }
 
-    public BillDTO(String id, String dateOrder, String dateEnd, double amount, String staffName, String checkerName, String billStatusName) {
+    public BillDTO(Long id, LocalDateTime dateOrder, LocalDateTime dateEnd, double amount, String staffName, String checkerName, String billStatusName) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.dateEnd = dateEnd;
@@ -43,27 +44,27 @@ public class BillDTO {
         this.billStatusName = billStatusName;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getDateOrder() {
+    public LocalDateTime getDateOrder() {
         return dateOrder;
     }
 
-    public void setDateOrder(String dateOrder) {
+    public void setDateOrder(LocalDateTime dateOrder) {
         this.dateOrder = dateOrder;
     }
 
-    public String getDateEnd() {
+    public LocalDateTime getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(String dateEnd) {
+    public void setDateEnd(LocalDateTime dateEnd) {
         this.dateEnd = dateEnd;
     }
 

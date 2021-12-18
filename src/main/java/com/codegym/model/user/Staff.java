@@ -21,7 +21,6 @@ public class Staff {
     private Long id;
 
     @ManyToOne(targetEntity = Gender.class)
-
     private Gender gender;
 
     private String name;
