@@ -58,7 +58,7 @@ public class RestBillController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Page<Bill>> showAll(@PageableDefault(value = 5) Pageable pageable) {
+    public ResponseEntity<Page<Bill>> showAll(@PageableDefault(value = 12) Pageable pageable) {
 
         return new ResponseEntity<>(billService.findAll(pageable), HttpStatus.OK);
     }
@@ -125,7 +125,11 @@ public class RestBillController {
             BillStatus billStatus = billStatusService.findById(idStatus).get();
             billOptional.get().setBillStatus(billStatus);
             billService.save(billOptional.get());
+            MailObject mailObject = new MailObject("noreply@tinderwindy.com", billOptional.get().getChecker().getAccount().getEmail(), "Your order is Verified", "Please check information your date: your partner: " + billOptional.get().getStaff().getName() + " national: " + billOptional.get().getStaff().getNationality() + ", height: " + billOptional.get().getStaff().getHeight() +", weight: " +billOptional.get().getStaff().getWeight() + ", total price: " + billOptional.get().getAmount());
+            emailService.sendSimpleMessage(mailObject);
             return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
         }
     }
+
+
 }

@@ -37,6 +37,7 @@ public class CheckerRestController {
         return new ResponseEntity<>(checkerService.findAll(), HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity<Checker> saveChecker(@RequestBody Checker checker) {
         Optional<Account> account = accountService.findById(checker.getAccount().getId());
