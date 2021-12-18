@@ -41,6 +41,7 @@ public class CheckerRestController {
     @PostMapping
     public ResponseEntity<Checker> saveChecker(@RequestBody Checker checker) {
         Optional<Account> account = accountService.findById(checker.getAccount().getId());
+        account.get().setBalance(0.0);
         checkerService.save(checker);
         MailObject mailObject = new MailObject("noreply@tinderwindy.com", account.get().getEmail(), "Account Tinder Windy Verified", "Welcome to Tinder Windy. Please click on the link below to verify this account!!" +"\nhttp://localhost:8080/api/accounts/verify/" + account.get().getId());
         emailService.sendSimpleMessage(mailObject);

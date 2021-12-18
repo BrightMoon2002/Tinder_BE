@@ -32,6 +32,9 @@ public class AccountService implements IAccountService {
 
     @Override
     public Account save(Account user) {
+//        if (user.getUsername()==null || user.getEmail()==null || user.getPassword()== null || user.getFullName() == null) {
+//            throw new NullPointerException("information not blank");
+//        }
         user.setPassword(user.getPassword());
         return accountRepository.save(user);
     }
