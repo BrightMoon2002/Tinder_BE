@@ -1,12 +1,19 @@
 package com.codegym.controller.staff;
 
+import com.codegym.model.receipt.Bill;
+import com.codegym.model.receipt.BillDTO;
 import com.codegym.model.user.Staff;
+import com.codegym.model.user.StaffDTO;
+import com.codegym.service.staff.IStaffService;
 import com.codegym.service.staff.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,11 +21,32 @@ import java.util.Optional;
 @RequestMapping("/api/staffs")
 public class StaffRestController {
     @Autowired
-    StaffService staffService;
+    IStaffService staffService;
 
     @GetMapping
     public ResponseEntity<Iterable<Staff>> findAllStaff() {
         return new ResponseEntity<>(staffService.findAll(), HttpStatus.OK);
+    }
+    @GetMapping("/allstaff")
+    public ResponseEntity<Iterable<StaffDTO>> getAll() {
+        Iterable<Staff> staff = staffService.findAll();
+        List<StaffDTO> staffDTOList = new ArrayList<>();
+        for (Staff b: staff
+        ) {
+            staffDTOList.add( new StaffDTO(
+                    b.getId(),
+                    b.getGender().getName(),
+                    b.getName(),
+                    b.getDob(),
+                    b.getCity(),
+                    b.getNationality(),
+                    b.getHeight(),
+                    b.getWeight(),
+                    b.getDescription(),b.getAvatarList().get(0).toString()));
+        }
+        System.out.println(staffDTOList);
+        Iterable<StaffDTO> staffDTOS = staffDTOList;
+        return new ResponseEntity<>(staffDTOS, HttpStatus.OK);
     }
 
     @PostMapping

@@ -19,11 +19,11 @@ public class Gender {
 
     private String name;
 
-    @OneToMany(targetEntity = Staff.class, mappedBy = "gender")
+    @OneToMany(targetEntity = Staff.class, mappedBy = "gender",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Staff> staffList;
 
-    @OneToMany(targetEntity = Checker.class, mappedBy = "gender")
+    @OneToMany(targetEntity = Checker.class, mappedBy = "gender",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Checker> checkerList;
 
