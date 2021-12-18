@@ -39,8 +39,6 @@ public class AccountRestController {
     @PostMapping
     public ResponseEntity<Account> saveAccount(@RequestBody Account account) {
         accountService.save(account);
-        MailObject mailObject = new MailObject("noreply@tinderwindy.com", account.getEmail(), "Account Tinder Windy Verified", "Welcome to Tinder Windy. Please click on the link below to verify this account!!" +"\nhttp://localhost:8080/api/accounts/verify/" + account.getId());
-        emailService.sendSimpleMessage(mailObject);
         return new ResponseEntity<>(account,HttpStatus.CREATED);
     }
 
