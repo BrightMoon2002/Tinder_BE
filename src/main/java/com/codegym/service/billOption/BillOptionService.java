@@ -39,4 +39,9 @@ public class BillOptionService implements IBillOptionService{
     public Page<BillOption> findAll(Pageable pageable) {
         return billOptionRepository.findAll(pageable);
     }
+
+    @Override
+    public Iterable<BillOption> findAllByBillId(Long id) {
+        return billOptionRepository.findAllByBillId(id);
+    }
 }
