@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IBillOptionRepository extends JpaRepository<BillOption, Long> {
+    Iterable<BillOption> findAllByBillId(Long id);
 }

@@ -53,4 +53,9 @@ public class RestBillOptionController {
         }
         return new ResponseEntity<>(billOptionOptional.get(), HttpStatus.OK);
     }
+    @GetMapping("/findByBill/{idBill}")
+    public ResponseEntity<Iterable<BillOption>> getAllByBill(@PathVariable Long idBill){
+        return new ResponseEntity<>(billOptionService.findAllByBillId(idBill), HttpStatus.OK);
+
+    }
 }
