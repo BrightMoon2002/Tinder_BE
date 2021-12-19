@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -21,26 +23,36 @@ public class Account  {
     private Long id;
 
     @Column(unique = true, nullable = false)
+    @NotNull(message = "cant not be blank")
     private String username;
 
+
     @Column(nullable = false)
+    @NotNull(message = "cant not be blank")
     private String password;
 
     @Column(nullable = false)
+    @NotNull(message = "cant not be blank")
     private String fullName;
 
     @Column
+    @NotNull(message = "cant not be blank")
     private Double balance;
 
     @Column
+    @NotNull(message = "cant not be blank")
     private String phone;
 
     @Column
+    @NotNull(message = "cant not be blank")
     private String email;
 
     @ManyToOne(targetEntity = Status.class)
     @JoinColumn
     private Status status;
+
+    @Column
+    private LocalDate dateSignIn;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
