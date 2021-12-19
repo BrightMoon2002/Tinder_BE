@@ -64,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/helloAdmin").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/helloStaff").access("hasRole('ROLE_STAFF')")

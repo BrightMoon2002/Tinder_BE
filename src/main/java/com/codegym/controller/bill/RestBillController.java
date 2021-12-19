@@ -72,7 +72,7 @@ public class RestBillController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Page<Bill>> showAll(@PageableDefault(value = 12) Pageable pageable) {
+    public ResponseEntity<Page<Bill>> showAll(@PageableDefault(value = 4) Pageable pageable) {
 
         return new ResponseEntity<>(billService.findAll(pageable), HttpStatus.OK);
     }
@@ -304,6 +304,7 @@ public class RestBillController {
         if (bills == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
     @GetMapping("/showByStaffAndStatus/{idStaff}/{idStatus}")

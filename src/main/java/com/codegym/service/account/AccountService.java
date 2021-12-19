@@ -1,6 +1,7 @@
 package com.codegym.service.account;
 
 import com.codegym.model.account.Account;
+import com.codegym.model.account.Role;
 import com.codegym.model.account.UserPrinciple;
 import com.codegym.model.user.Staff;
 import com.codegym.repository.IAccountRepository;
@@ -68,5 +69,10 @@ public class AccountService implements IAccountService {
     @Override
     public Optional<Account> findAccountByStaff(Staff staff) {
         return accountRepository.findAccountByStaff(staff);
+    }
+
+    @Override
+    public Optional<Account> findAccountByRoles(Role role) {
+        return accountRepository.findAccountByRoles(role);
     }
 }
