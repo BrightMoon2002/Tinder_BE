@@ -1,5 +1,9 @@
 package com.codegym.handler;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +15,7 @@ public class AccountExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ModelAndView exception(Exception e) {
         System.out.println("error" + e.getMessage());
-        ModelAndView model = new ModelAndView("/error-404");
-        return model;
+        return new ModelAndView("/error-404");
+//        return new ResponseEntity<>("not null", HttpStatus.FOUND);
     }
 }

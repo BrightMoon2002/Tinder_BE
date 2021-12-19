@@ -6,9 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
@@ -23,28 +25,27 @@ public class Account  {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotNull(message = "cant not be blank")
+    @NotBlank(message = "cant not be blank")
     private String username;
 
 
     @Column(nullable = false)
-    @NotNull(message = "cant not be blank")
+    @NotBlank(message = "cant not be blank")
     private String password;
 
     @Column(nullable = false)
-    @NotNull(message = "cant not be blank")
+    @NotBlank(message = "cant not be blank")
     private String fullName;
 
     @Column
-    @NotNull(message = "cant not be blank")
     private Double balance;
 
     @Column
-    @NotNull(message = "cant not be blank")
+    @NotBlank(message = "cant not be blank")
     private String phone;
 
     @Column
-    @NotNull(message = "cant not be blank")
+    @NotBlank(message = "cant not be blank")
     private String email;
 
     @ManyToOne(targetEntity = Status.class)

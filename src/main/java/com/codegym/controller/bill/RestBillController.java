@@ -86,6 +86,8 @@ public class RestBillController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
+        BillStatus billStatus = billStatusService.findById(1L).get();
+        bill.setBillStatus(billStatus);
         Account accountChecker = bill.getChecker().getAccount();
         double amountChecker = accountChecker.getBalance() - bill.getAmount();
         accountChecker.setBalance(amountChecker);
