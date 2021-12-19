@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface IStaffRepository extends JpaRepository<Staff, Long> {
     Optional<Staff> findAllByAccount_Id(Long id);
+    Iterable<Staff> findAllByGenderId(Long id);
 }

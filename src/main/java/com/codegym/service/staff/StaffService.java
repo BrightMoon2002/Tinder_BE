@@ -43,4 +43,9 @@ public class StaffService implements IStaffService{
     public Optional<Staff> findAllByAccount_Id(Long id) {
         return staffRepository.findAllByAccount_Id(id);
     }
+
+    @Override
+    public Iterable<Staff> findAllByGenderId(Long id) {
+        return staffRepository.findAllByGenderId(id);
+    }
 }
