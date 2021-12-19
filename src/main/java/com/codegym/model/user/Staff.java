@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -21,13 +22,20 @@ public class Staff {
     private Long id;
 
     @ManyToOne(targetEntity = Gender.class)
+    @NotBlank(message = "cant not blank")
     private Gender gender;
 
+    @NotBlank(message = "cant not blank")
     private String name;
     private String dob;
+    @NotBlank(message = "cant not blank")
     private String city;
+
+    @NotBlank(message = "cant not blank")
     private String nationality;
+    @NotBlank(message = "Can not blank")
     private double height;
+    @NotBlank(message = "cant not blank")
     private double weight;
     private String description;
 
