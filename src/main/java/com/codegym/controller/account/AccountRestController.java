@@ -117,4 +117,19 @@ public class AccountRestController {
         return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
     }
 
+    @PutMapping("/suspending/{id}")
+    public ResponseEntity<Account> suspendingAccount(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!accountOptional.get().getStatus().equals(statusService.findById(1L))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Status status = statusService.findById(4L).get();
+        accountOptional.get().setStatus(status);
+        accountService.save(accountOptional.get());
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
 }
