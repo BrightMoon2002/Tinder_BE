@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/staffoption")
+    @RequestMapping("/api/staffoption")
 public class StaffOptionRestController {
     @Autowired
     IStaffOptionService staffOptionService;
