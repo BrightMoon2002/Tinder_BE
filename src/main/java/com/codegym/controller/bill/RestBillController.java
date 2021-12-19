@@ -86,8 +86,25 @@ public class RestBillController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
+
         BillStatus billStatus = billStatusService.findById(1L).get();
         bill.setBillStatus(billStatus);
+
+//        Account accountChecker = bill.getChecker().getAccount();
+//        double amountChecker = accountChecker.getBalance() - bill.getAmount();
+//        accountChecker.setBalance(amountChecker);
+//        accountService.save(accountChecker);
+//
+//        Optional<Account> accountAdmin = accountService.findById(1L);
+//        double amountAdmin = accountAdmin.get().getBalance() + bill.getAmount();
+//        accountAdmin.get().setBalance(amountAdmin);
+//        accountService.save(accountAdmin.get());
+        return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/")
+    @ResponseBody
+    public ResponseEntity<Bill> saveBillDTO(@RequestBody Bill bill) {
         Account accountChecker = bill.getChecker().getAccount();
         double amountChecker = accountChecker.getBalance() - bill.getAmount();
         accountChecker.setBalance(amountChecker);
