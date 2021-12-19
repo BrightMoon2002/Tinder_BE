@@ -2,6 +2,7 @@ package com.codegym.controller.bill;
 
 import com.codegym.model.account.Account;
 import com.codegym.model.receipt.BillDTO;
+import com.codegym.model.receipt.BillOption;
 import com.codegym.model.receipt.BillStatus;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import static java.time.temporal.ChronoUnit.HOURS;
 
 @Controller
 @CrossOrigin("*")
@@ -86,6 +89,25 @@ public class RestBillController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
+
+        BillStatus billStatus = billStatusService.findById(1L).get();
+        bill.setBillStatus(billStatus);
+
+//        Account accountChecker = bill.getChecker().getAccount();
+//        double amountChecker = accountChecker.getBalance() - bill.getAmount();
+//        accountChecker.setBalance(amountChecker);
+//        accountService.save(accountChecker);
+//
+//        Optional<Account> accountAdmin = accountService.findById(1L);
+//        double amountAdmin = accountAdmin.get().getBalance() + bill.getAmount();
+//        accountAdmin.get().setBalance(amountAdmin);
+//        accountService.save(accountAdmin.get());
+        return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/")
+    @ResponseBody
+    public ResponseEntity<Bill> saveBillDTO(@RequestBody Bill bill) {
         Account accountChecker = bill.getChecker().getAccount();
         double amountChecker = accountChecker.getBalance() - bill.getAmount();
         accountChecker.setBalance(amountChecker);
@@ -107,6 +129,21 @@ public class RestBillController {
             billService.remove(id);
         }
         return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/hour/{id}")
+    public ResponseEntity<Integer> getHoursDifferent(@PathVariable Long id) {
+        Bill bill = billService.findById(id).get();
+        Integer time = Integer.parseInt(String.valueOf(HOURS.between(bill.getDateOrder(),bill.getDateEnd())));
+        return new ResponseEntity<>(time, HttpStatus.OK);
+    }
+
+    @PutMapping("/amount/{id}/{amount}")
+    public ResponseEntity<Bill> setAmount(@PathVariable Long id, @PathVariable double amount) {
+        Bill bill = billService.findById(id).get();
+        bill.setAmount(amount);
+        billService.save(bill);
+        return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
     @GetMapping("/view/{id}")
