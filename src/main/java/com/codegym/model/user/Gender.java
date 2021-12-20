@@ -23,7 +23,7 @@ public class Gender {
     @JsonIgnore
     private List<Staff> staffList;
 
-    @OneToMany(targetEntity = Checker.class, mappedBy = "gender",cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Checker.class, mappedBy = "gender")
     @JsonIgnore
     private List<Checker> checkerList;
 
