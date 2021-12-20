@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -43,6 +44,7 @@ public class RestMessageController {
 
     @PostMapping
     public ResponseEntity<Message> sendMessage(@RequestBody Message message) {
+        message.setDateSend(LocalDateTime.now());
         messageService.save(message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

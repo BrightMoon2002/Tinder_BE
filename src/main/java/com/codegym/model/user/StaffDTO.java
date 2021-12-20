@@ -14,6 +14,37 @@ public class StaffDTO {
     private String avatarUrl1;
     private String avatarUrl2;
     private String avatarUrl3;
+    private Long idAccount;
+
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String options, String avatarUrl1, String avatarUrl2, String avatarUrl3, Long idAccount) {
+        this.id = id;
+        this.genders = genders;
+        this.name = name;
+        this.dob = dob;
+        this.city = city;
+        this.nationality = nationality;
+        this.height = height;
+        this.weight = weight;
+        this.description = description;
+        this.options = options;
+        this.avatarUrl1 = avatarUrl1;
+        this.avatarUrl2 = avatarUrl2;
+        this.avatarUrl3 = avatarUrl3;
+        this.idAccount = idAccount;
+    }
+
+    public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, Long idAccount) {
+        this.id = id;
+        this.genders = genders;
+        this.name = name;
+        this.dob = dob;
+        this.city = city;
+        this.nationality = nationality;
+        this.height = height;
+        this.weight = weight;
+        this.description = description;
+        this.idAccount = idAccount;
+    }
 
     public StaffDTO(Long id, String genders, String name, String dob, String city, String nationality, double height, double weight, String description, String options) {
         this.id = id;
@@ -189,5 +220,13 @@ public class StaffDTO {
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+    public Long getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(Long idAccount) {
+        this.idAccount = idAccount;
     }
 }

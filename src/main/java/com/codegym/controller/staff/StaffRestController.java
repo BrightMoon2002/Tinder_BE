@@ -48,7 +48,10 @@ public class StaffRestController {
                     b.getNationality(),
                     b.getHeight(),
                     b.getWeight(),
-                    b.getDescription());
+                    b.getDescription(),
+                    b.getAccount().getId()
+            );
+
 
 
 
@@ -138,7 +141,9 @@ public class StaffRestController {
                     b.getNationality(),
                     b.getHeight(),
                     b.getWeight(),
-                    b.getDescription());
+                    b.getDescription(),
+                    b.getAccount().getId()
+            );
 
 
 
