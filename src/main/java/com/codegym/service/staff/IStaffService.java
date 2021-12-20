@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface IStaffService extends IGeneralService<Staff> {
     Optional<Staff> findAllByAccount_Id(Long id);
+    Iterable<Staff> findAllByGenderId(Long id);
 }

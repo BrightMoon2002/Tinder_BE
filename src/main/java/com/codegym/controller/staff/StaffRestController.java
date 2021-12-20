@@ -121,4 +121,53 @@ public class StaffRestController {
         }
         return new ResponseEntity<>(staff.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/gender/{id}")
+    public ResponseEntity<Iterable<StaffDTO>> getAllByGender(@PathVariable Long id) {
+        Iterable<Staff> staffIterable = staffService.findAllByGenderId(id);
+        List<StaffDTO> staffDTOList = new ArrayList<>();
+        for (Staff b: staffIterable
+        ) {
+
+            StaffDTO staffDTO = new StaffDTO(
+                    b.getId(),
+                    b.getGender().getName(),
+                    b.getName(),
+                    b.getDob(),
+                    b.getCity(),
+                    b.getNationality(),
+                    b.getHeight(),
+                    b.getWeight(),
+                    b.getDescription());
+
+
+
+            List<String> optionsTemp = new ArrayList<>();
+            for (StaffOption s: staffOptionService.findAll()) {
+                if (s.getStaff().getId().equals(b.getId())) {
+                    optionsTemp.add(s.getOption().getName());
+                }
+            }
+
+            String options = String.join(", ",optionsTemp);
+            staffDTO.setAvatarUrl1(b.getAvatarList().get(0).getImage());
+            staffDTO.setAvatarUrl2(b.getAvatarList().get(1).getImage());
+            staffDTO.setAvatarUrl3(b.getAvatarList().get(2).getImage());
+            staffDTO.setOptions(options);
+            staffDTOList.add(staffDTO);
+
+
+
+
+
+        }
+
+
+
+
+
+        return new ResponseEntity<>(staffDTOList, HttpStatus.OK);
+    }
+
+
 }

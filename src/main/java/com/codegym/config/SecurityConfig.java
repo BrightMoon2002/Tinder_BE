@@ -62,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/accounts*","/api/genders","/api/staffs*","/api/staffs/**","/api/avatar*","/api/checkers/**", "/api/bills/showByStaff/**", "/api/bills/setStatusRequestMoney/**", "/api/accounts/unBlockAccount/**", "/api/accounts/blockAccount/**", "/api/accounts/verify/**","/api/options**", "/api/staffoption**","/api/staffoption/**","/api/avatar/**","/api/bills/editStatus/**","/api/bills/showByStaffAndStatus/**","/api/showByStaff/**","/api/billOptions/**","/api/bills/**","/api/status*","/api/billOptions**", "/api/billOptions/**", "/api/options/**", "/api/options**", "/api/bills/hour/**","/api/bills/amount/**/**").permitAll()
 
+
+
                 //Set tung quyen cho tung thang
                 .antMatchers("/api/bills").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/staffs").access("hasRole('ROLE_STAFF')")
