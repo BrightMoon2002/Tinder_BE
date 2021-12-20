@@ -57,23 +57,13 @@ public class AccountRestController {
         }
 
 
-        Status status = statusService.findById(Long.parseLong("1")).get();
+        Status status = statusService.findById(Long.parseLong("2")).get();
         account.get().setStatus(status);
         accountService.save(account.get());
 
         return new ResponseEntity<>(account.get(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account account) {
-        Optional<Account> account1 = accountService.findById(id);
-        if (!account1.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        account.setId(account1.get().getId());
-        accountService.save(account);
-        return new ResponseEntity<>(account, HttpStatus.OK);
-    }
     @GetMapping("/{id}")
     public ResponseEntity<Account> findById(@PathVariable Long id) {
         Optional<Account> account = accountService.findById(id);
@@ -81,6 +71,14 @@ public class AccountRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(account.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> updateById(@PathVariable Long id, @RequestBody Account account) {
+        Account account1 = accountService.findById(id).get();
+        account1.setBalance(account.getBalance());
+        accountService.save(account1);
+        return new ResponseEntity<>(account1, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
