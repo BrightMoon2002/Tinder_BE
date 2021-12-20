@@ -3,15 +3,12 @@ package com.codegym.model.account;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -69,6 +66,12 @@ public class Account  {
     @OneToOne(mappedBy = "account")
     @JsonIgnore
     private Checker checker;
+
+//    @OneToMany(targetEntity = MessagePool.class, mappedBy = "sendingMessage")
+//    private List<MessagePool> sendingMessage;
+//
+//    @OneToMany(targetEntity = MessagePool.class, mappedBy = "receivedMessage")
+//    private List<MessagePool> receivedMessage;
 
 
 //    public Account(Long id, String username, String password, String fullName, Double balance, String phone, String email, Status status, Set<Role> roles) {
