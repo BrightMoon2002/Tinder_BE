@@ -1,16 +1,14 @@
 package com.codegym.controller.bill;
 
+import com.codegym.model.DTO.IBillDTo;
 import com.codegym.model.account.Account;
-import com.codegym.model.receipt.BillDTO;
-import com.codegym.model.receipt.BillOption;
-import com.codegym.model.receipt.BillStatus;
+import com.codegym.model.receipt.*;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.codegym.service.account.IAccountService;
 import com.codegym.service.checker.ICheckerService;
 import com.codegym.service.email.EmailService;
 import com.codegym.model.email.MailObject;
-import com.codegym.model.receipt.Bill;
 import com.codegym.service.bill.IBillService;
 import com.codegym.service.billOption.IBillOptionService;
 import com.codegym.service.billstatus.IBillStatusService;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -313,4 +310,20 @@ public class RestBillController {
         return new ResponseEntity<>(billOptional, HttpStatus.OK);
     }
 
+    @GetMapping("/showAmountBill/{id1}/{id2}")
+    public ResponseEntity<Bill> showAmountBill(@PathVariable Long id1, @PathVariable Long id2) {
+        double amount = billService.sumAmountBill(id1, id2);
+        Bill bill = new Bill();
+        bill.setAmount(amount);
+        bill.setStaff(staffService.findById(id1).get());
+        bill.setChecker(checkerService.findById(id2).get());
+        return new ResponseEntity<>(bill, HttpStatus.OK);
+    }
+
+    @GetMapping("/showBillDTO")
+    public ResponseEntity<Iterable<IBillDTo>> showBillDTO() {
+        Iterable<IBillDTo> billDTOS = billService.customShowBillWithContent();
+        System.out.println(billDTOS);
+        return new ResponseEntity<>(billDTOS, HttpStatus.OK);
+    }
 }

@@ -1,6 +1,7 @@
 package com.codegym.service.bill;
 
 import com.codegym.model.receipt.Bill;
+import com.codegym.model.DTO.IBillDTo;
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.codegym.repository.bill.IBillRepository;
@@ -55,5 +56,15 @@ public class BillService implements IBillService{
     @Override
     public Iterable<Bill> findAllByStaffIdAndBillStatusId(Long idStaff, Long idStatus) {
         return billRepository.findAllByStaffIdAndBillStatusId(idStaff,idStatus);
+    }
+
+    @Override
+    public double sumAmountBill(Long staff_id, Long checker_id) {
+        return billRepository.sumAmountBill(staff_id, checker_id);
+    }
+
+    @Override
+    public Iterable<IBillDTo> customShowBillWithContent() {
+        return billRepository.customShowBillWithContent();
     }
 }

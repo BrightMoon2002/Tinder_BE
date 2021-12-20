@@ -58,11 +58,7 @@ public class MessageService implements IMessageService{
         return messageRepository.findAllBySenderOrReceiver(sender, receiver);
     }
 
-    @Override
-    public Iterable<Message> findAllBySenderOrReceiverOrderByReceiver(Account sender,Account receiver) {
-        return messageRepository.findAllBySenderOrReceiverOrderByReceiver(sender, receiver);
-//        return null;
-    }
+
 
     @Override
     public Iterable<Message> customFindAllBySenderOrReceiverOrderByReceiver(Long id1, Long id2, Long id3, Long id4) {
