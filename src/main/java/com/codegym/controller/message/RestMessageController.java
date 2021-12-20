@@ -1,6 +1,8 @@
 package com.codegym.controller.message;
 
+import com.codegym.model.account.Account;
 import com.codegym.model.message.Message;
+import com.codegym.service.account.IAccountService;
 import com.codegym.service.message.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +17,14 @@ import java.util.Optional;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("/api/message")
+@RequestMapping("/api/messages")
 public class RestMessageController {
 
     @Autowired
     private IMessageService messageService;
+
+    @Autowired
+    private IAccountService accountService;
 
     @GetMapping
     public ResponseEntity<Iterable<Message>> showAll() {
@@ -50,10 +55,56 @@ public class RestMessageController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Message> deleteMessage(@PathVariable Long id) {
         Optional<Message> messageOptional = messageService.findById(id);
-       if (!messageOptional.isPresent()) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-       messageService.remove(id);
-       return new ResponseEntity<>(messageOptional.get(), HttpStatus.OK);
+        if (!messageOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        messageService.remove(id);
+        return new ResponseEntity<>(messageOptional.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/sender/{id}")
+    public ResponseEntity<Iterable<Message>> showAllMessageBySender(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Message> messagesSender = messageService.findAllBySender(accountOptional.get());
+        return new ResponseEntity<>(messagesSender, HttpStatus.OK);
+    }
+
+    @GetMapping("/receiver/{id}")
+    public ResponseEntity<Iterable<Message>> showAllMessageByReceiver(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Message> messagesReceiver = messageService.findAllByReceiver(accountOptional.get());
+        return new ResponseEntity<>(messagesReceiver, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Iterable<Message>> showAllMessageByChecker(@PathVariable Long id) {
+        Optional<Account> accountOptional = accountService.findById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Iterable<Message> messages = messageService.findAllBySenderOrReceiver(accountOptional.get(), accountOptional.get());
+        return new ResponseEntity<>(messages, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id1}/{id2}")
+    public ResponseEntity<Iterable<Message>> showAllMessageByReceiver(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2) {
+        Optional<Account> accountOptionalSender = accountService.findById(id1);
+        Account accountSender = accountOptionalSender.get();
+        Optional<Account> accountOptionalReceiver = accountService.findById(id2);
+        if (!accountOptionalSender.isPresent() || !accountOptionalReceiver.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+//        Iterable<Message> messages = messageService.findAllBySenderAndReceiver(accountOptionalSender.get(), accountOptionalReceiver.get());
+//        Iterable<Message> messages = messageService.findAllBySenderOrReceiverOrderByReceiver(accountOptionalReceiver.get(), accountOptionalSender.get());
+        Iterable<Message> messages = messageService.customFindAllBySenderOrReceiverOrderByReceiver(accountOptionalReceiver.get(), accountOptionalSender.get(), accountOptionalReceiver.get());
+        return new ResponseEntity<>(messages, HttpStatus.OK);
+    }
+
+
 }
