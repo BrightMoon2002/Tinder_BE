@@ -1,5 +1,7 @@
 package com.codegym.model.receipt;
 
+import lombok.Value;
+
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
@@ -24,7 +26,8 @@ public class BillDTO {
 
     private String billStatusName;
 
-    public BillDTO(Long id, LocalDateTime dateOrder, LocalDateTime dateEnd, double amount, String staffName, String checkerName, String assessmentContent, String billStatusName) {
+
+        public BillDTO(Long id, LocalDateTime dateOrder, LocalDateTime dateEnd, double amount, String staffName, String checkerName, String assessmentContent, String billStatusName) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.dateEnd = dateEnd;
@@ -46,6 +49,12 @@ public class BillDTO {
         this.checkerName = checkerName;
         this.assessmentContent = assessmentContent;
         this.billStatusName = billStatusName;
+    }
+
+    public BillDTO(Long id, Long staff_id, String assessmentContent) {
+        this.id = id;
+        this.staff_id = staff_id;
+        this.assessmentContent = assessmentContent;
     }
 
     public BillDTO(LocalDateTime dateOrder, LocalDateTime dateEnd, double amount, Long staff_id, String staffName, Long checker_id, String checkerName, String assessmentContent, String billStatusName) {
