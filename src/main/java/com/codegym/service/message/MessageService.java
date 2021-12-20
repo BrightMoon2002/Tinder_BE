@@ -1,5 +1,6 @@
 package com.codegym.service.message;
 
+import com.codegym.model.DTO.IMessageDTO;
 import com.codegym.model.account.Account;
 import com.codegym.model.message.Message;
 import com.codegym.repository.message.IMessageRepository;
@@ -58,6 +59,11 @@ public class MessageService implements IMessageService{
         return messageRepository.findAllBySenderOrReceiver(sender, receiver);
     }
 
+
+    @Override
+    public Iterable<IMessageDTO> showMessageDTO(Long id1, Long id2, Long id3, Long id4) {
+        return messageRepository.showMessageDTO(id1, id2, id3, id4);
+    }
 
 
     @Override

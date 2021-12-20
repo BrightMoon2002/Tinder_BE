@@ -1,5 +1,6 @@
 package com.codegym.controller.message;
 
+import com.codegym.model.DTO.IMessageDTO;
 import com.codegym.model.account.Account;
 import com.codegym.model.message.Message;
 import com.codegym.service.account.IAccountService;
@@ -93,14 +94,15 @@ public class RestMessageController {
     }
 
     @GetMapping("/{id1}/{id2}")
-    public ResponseEntity<Iterable<Message>> showAllMessageByReceiver(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2) {
+    public ResponseEntity<Iterable<IMessageDTO>> showAllMessageByReceiver(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2) {
         Optional<Account> accountOptionalSender = accountService.findById(id1);
         Account accountSender = accountOptionalSender.get();
         Optional<Account> accountOptionalReceiver = accountService.findById(id2);
         if (!accountOptionalSender.isPresent() || !accountOptionalReceiver.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Iterable<Message> messages = messageService.customFindAllBySenderOrReceiverOrderByReceiver(id2, id1, id1, id2);
+        Iterable<IMessageDTO> messages = messageService.showMessageDTO(id1, id2, id2, id1);
+//        Iterable<Message> messages = messageService.customFindAllBySenderOrReceiverOrderByReceiver(id2, id1, id1, id2);
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 

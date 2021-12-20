@@ -1,5 +1,6 @@
 package com.codegym.model.account;
 
+
 import com.codegym.model.user.Checker;
 import com.codegym.model.user.Staff;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -66,6 +68,14 @@ public class Account  {
     @OneToOne(mappedBy = "account")
     @JsonIgnore
     private Checker checker;
+
+//    @OneToMany(targetEntity = MessagePool.class, mappedBy = "receiverMessage")
+//    @JsonIgnore
+//    private List<MessagePool> listReceiver;
+//
+//    @OneToMany(targetEntity = MessagePool.class, mappedBy = "senderMessage")
+//    @JsonIgnore
+//    private List<MessagePool> ListSender;
 
 //    @OneToMany(targetEntity = MessagePool.class, mappedBy = "sendingMessage")
 //    private List<MessagePool> sendingMessage;

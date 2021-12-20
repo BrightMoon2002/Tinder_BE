@@ -1,5 +1,6 @@
 package com.codegym.repository.bill;
 
+import com.codegym.model.DTO.IMessageDTO;
 import com.codegym.model.receipt.Bill;
 import com.codegym.model.DTO.IBillDTo;
 import com.codegym.model.user.Checker;
@@ -18,4 +19,5 @@ public interface IBillRepository extends JpaRepository<Bill, Long> {
     double sumAmountBill(@Param("staff_id") Long staff_id, @Param("checker_id") Long checker_id);
     @Query(value = "select b.id as id, s.name as staff_name, a.content as content from bills b join staffs s on b.staff_id = s.id join checkers c on b.checker_id = c.id join assessments a on a.id = b.assessment_id", nativeQuery = true)
     Iterable<IBillDTo> customShowBillWithContent();
+
 }
