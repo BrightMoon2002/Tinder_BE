@@ -13,6 +13,6 @@ public interface IMessageService extends IGeneralService<Message> {
     Iterable<Message> findAllBySenderAndReceiver(Account sender, Account receiver);
     Iterable<Message> findAllBySenderOrReceiver(Account sender, Account receiver);
     Iterable<Message> findAllBySenderOrReceiverOrderByReceiver(Account sender, Account receiver);
-    Iterable<Message> customFindAllBySenderOrReceiverOrderByReceiver(Account receiver, Account sender, Account receiver2);
+    Iterable<Message> customFindAllBySenderOrReceiverOrderByReceiver(Long id1, Long id2, Long id3, Long id4);
 
 }

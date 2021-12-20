@@ -100,9 +100,7 @@ public class RestMessageController {
         if (!accountOptionalSender.isPresent() || !accountOptionalReceiver.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-//        Iterable<Message> messages = messageService.findAllBySenderAndReceiver(accountOptionalSender.get(), accountOptionalReceiver.get());
-//        Iterable<Message> messages = messageService.findAllBySenderOrReceiverOrderByReceiver(accountOptionalReceiver.get(), accountOptionalSender.get());
-        Iterable<Message> messages = messageService.customFindAllBySenderOrReceiverOrderByReceiver(accountOptionalReceiver.get(), accountOptionalSender.get(), accountOptionalReceiver.get());
+        Iterable<Message> messages = messageService.customFindAllBySenderOrReceiverOrderByReceiver(id2, id1, id1, id2);
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 

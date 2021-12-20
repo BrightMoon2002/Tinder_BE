@@ -19,6 +19,6 @@ public interface IMessageRepository extends JpaRepository<Message, Long> {
 
     Iterable<Message> findAllBySenderOrReceiverOrderByReceiver(Account sender, Account receiver);
     Iterable<Message> findAllByReceiverOrSenderOrderByReceiver(Account sender, Account receiver);
-    @Query(value = "SELECT m from Message m having m.receiver = ?1 or m.sender = ?2 order by m.receiver = ?3", nativeQuery = true)
-    Iterable<Message> customFindAllBySenderOrReceiverOrderByReceiver(Account receiver, Account sender, Account receiver2);
+    @Query(value = "select * from messages where (receiver_id = ?1 and sender_id = ?2) or (receiver_id = ?3 and sender_id = ?4);", nativeQuery = true)
+    Iterable<Message> customFindAllBySenderOrReceiverOrderByReceiver(Long id1, Long id2, Long id3, Long id4);
 }
