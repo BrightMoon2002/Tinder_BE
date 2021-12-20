@@ -60,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //Set cho tat ca deu vao duoc
 
-  .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/accounts*","/api/genders","/api/staffs*","/api/staffs/**","/api/avatar*","/api/checkers/**", "/api/bills/showByStaff/**", "/api/bills/setStatusRequestMoney/**", "/api/accounts/unBlockAccount/**", "/api/accounts/blockAccount/**", "/api/accounts/verify/**","/api/options**", "/api/staffoption**","/api/staffoption/**","/api/avatar/**","/api/bills/editStatus/**","/api/bills/showByStaffAndStatus/**","/api/showByStaff/**","/api/billOptions/**","/api/bills/**","/api/status*","/api/billOptions**", "/api/billOptions/**", "/api/options/**", "/api/options**", "/api/bills/hour/**","/api/bills/amount/**/**", "/api/messages", "/api/messages/**", "/api/sender/**", "/api/receiver/**", "api/messages/**/**", "/api/bills/showAmountBill/**/**", "/api/bills/showBillDTO").permitAll()
 
+                .antMatchers("/", "/api/login", "/mails", "/mails/send", "/api/accounts*", "/api/genders", "/api/staffs*", "/api/staffs/**", "/api/avatar*", "/api/checkers/**", "/api/bills/showByStaff/**", "/api/bills/setStatusRequestMoney/**", "/api/accounts/unBlockAccount/**", "/api/accounts/blockAccount/**", "/api/accounts/verify/**", "/api/options**", "/api/staffoption**", "/api/staffoption/**", "/api/avatar/**", "/api/bills/editStatus/**", "/api/bills/showByStaffAndStatus/**", "/api/showByStaff/**", "/api/billOptions/**", "/api/bills/**", "/api/status*", "/api/billOptions**", "/api/billOptions/**", "/api/options/**", "/api/options**", "/api/bills/hour/**", "/api/bills/amount/**/**", "/api/messages", "/api/messages/**", "/api/sender/**", "/api/receiver/**", "api/messages/**/**", "/api/assessments/findByStaffId/**", "/api/assessments/").permitAll()
 
 
                 //Set tung quyen cho tung thang

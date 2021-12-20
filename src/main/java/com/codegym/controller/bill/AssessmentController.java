@@ -48,4 +48,11 @@ public class AssessmentController {
         }
         return new ResponseEntity<>(assessmentOptional.get(), HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Assessment> updateById(@PathVariable Long id, @RequestBody Assessment assessment) {
+        assessment.setId(id);
+        Assessment assessment1 = assessmentService.save(assessment);
+        return new ResponseEntity<>(assessment1, HttpStatus.OK);
+    }
 }
