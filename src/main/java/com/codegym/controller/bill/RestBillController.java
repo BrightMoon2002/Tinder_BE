@@ -86,6 +86,15 @@ public class RestBillController {
         return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Bill> updateBillById(@PathVariable Long id, @RequestBody Bill bill) {
+        Optional<Bill> billOptional = billService.findById(id);
+        billOptional.get().setBillStatus(bill.getBillStatus());
+        billService.save(billOptional.get());
+        return new ResponseEntity<>(billOptional.get(), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<Bill> saveBill(@RequestBody Bill bill) {
